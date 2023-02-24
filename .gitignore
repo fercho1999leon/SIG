@@ -1,0 +1,9 @@
+public/
+storage/
+vendor/
+/.git
+/.vscode
+composer.lock
+package-lock.json
+.env
+docker-compose.yml

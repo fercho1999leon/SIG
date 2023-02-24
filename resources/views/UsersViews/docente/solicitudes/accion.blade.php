@@ -1,0 +1,1 @@
+<a href="{{ route('reporteSolicitud',$id) }}" class="btn btn-success" title="Descargar Solicitud"><i class="fa fa-download" aria-hidden="true"></i></a>
