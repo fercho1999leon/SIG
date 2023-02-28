@@ -1,9 +1,11 @@
 public/
 storage/
 vendor/
+docker/
 /.git
 /.vscode
 composer.lock
 package-lock.json
 .env
-docker-compose.yml
+.env.*
+docker-compose.*
