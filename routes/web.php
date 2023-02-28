@@ -4,7 +4,7 @@
 | Web Routes
 |--------------------------------------------------------------------------
  */
-/**ACTIVAR SOLO CUANDO SE UTILICE CERTIFICADO SSL */
+/**ACTIVAR SOLO CUANDO SE UTILICE CERTIFICADO SSL o PROXY*/
 
 use App\Mail\NotifyUserAndPasswordUserAdmision;
 use Illuminate\Support\Facades\Mail;
