@@ -2,6 +2,7 @@ public/
 storage/*.key
 vendor/
 docker/
+node_modules/*
 /.git
 /.vscode
 composer.lock
