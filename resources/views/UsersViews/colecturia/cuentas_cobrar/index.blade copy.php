@@ -33,46 +33,6 @@ div.micelda {
     text-align: center;
 }
 </style>
-
-<style>
-    .accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-    transition: 0.4s;
-    }
-
-    .active, .accordion:hover {
-    background-color: #ccc;
-    }
-
-    .accordion:after {
-    content: '\002B';
-    color: #777;
-    font-weight: bold;
-    float: right;
-    margin-left: 5px;
-    }
-
-    .active:after {
-    content: "\2212";
-    }
-
-    .panel {
-    padding: 0 18px;
-    background-color: white;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-    }
-</style>
-
 </head>
 @endsection
 @section('content')
@@ -98,7 +58,7 @@ div.micelda {
             <h1 class="title-page">Cuentas por Cobrar </h1>
             <div class="agregarSeccionCont">
                 <a href="">
-                    <button class="btn btn-primary">HOLA</button>
+                    <button class="btn btn-primary"></button>
                 </a>
             </div>
         </div>
@@ -108,23 +68,48 @@ div.micelda {
         <table id="tablaEstudiantes" class="table table-striped table-hover table-bordered white-bg">
             <thead>
                 <tr>
-                    <th>RUC-Cedula Estudiante</th>
+                    <th>Num</th>
+                    <th>Fecha Emisión</th>
+                    <th>Fecha Vencimiento</th>
                     <th>Nombre del Estudiante</th>
+                    <th>Concepto del Pago</th>
+                    <th>Semestre</th>
+                    <th>Valor a Pagar</th>
+                    <th>Pago / Abono</th>
+                    <th>Saldo</th>
+                    <th>RUC-Cedula Estudiante</th>
+                    <th>Código del Estudiante</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th>RUC-Cedula Estudiante</th>
+                    <th></th>
+                    <th>Fecha Emisión</th>
+                    <th>Fecha Vencimiento</th>
                     <th>Nombre del Estudiante</th>
+                    <th>Concepto del Pago</th>
+                    <th>Semestre</th>
+                    <th>Valor a Pagar</th>
+                    <th>Pago / Abono</th>
+                    <th>Saldo</th>
+                    <th>RUC-Cedula Estudiante</th>
+                    <th>Código del Estudiante</th>
+                    <th>Estado</th>
+                    <th></th>
                 </tr>
             </tfoot>
             <tbody>    
+              
                 <tr>
+                    
                     <td>
                          
                     </td>        
                 </tr>
-            </tbody>
+              
+              </tbody>
         </table>
     </div>
 </div>
@@ -489,126 +474,149 @@ div.micelda {
 <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js" type="text/javascript"></script>
 <script type="text/javascript"> 
-    let idPago;
-    $(document).ready(function() {
-                        
-        $('#tablaEstudiantes tfoot th').each(function() {
-            var title = $(this).text();
-            if (title != '') {
-                $(this).html(
-                    '<input style="width: 100% !important; text-align: center;" type="text" placeholder="Buscar" />'
-                );
-            }
-        });
-        
-        var tabla = $('#tablaEstudiantes').DataTable({
-            processing: true,
-            serverSide: true,
-            lengthMenu: [
-                [10, 25, 50, -1],
-                [10, 25, 50, "All"]
-            ],
-            responsive: true,
-            ajax: "{{ route('tablaCuentasPorCobrar')}}",
-            columns: [
-                {
-                    data: 'cedulaEstudiante',
+let idPago;
+$(document).ready(function() {
                     
-                },
-                {
-                    data: 'acordeon'
-                }
-            ],
-            dom: 'Blfrtip',
-            buttons: [
-                
-                {
-                    extend: "excel",
-                    titleAttr: 'Exportar Excel',
-                    text: 'Excel',
-                },
-                {
-                    extend: 'pdfHtml5',
-                    titleAttr: 'Exportar PDF',
-                    text: 'PDF',
-                    
-                },
-                {
-                    extend: 'copyHtml5',
-                    titleAttr: 'Copiar Datos',
-                    text: 'Copiar',
-                    
-                },
-                {
-                    extend: 'print',
-                    text: 'Imprimir',
-                    titleAttr: 'Imprimir Listado',
-                    
-                },
-            ],
-            language: {
-                "processing": "Procesando...",
-                "lengthMenu": "Mostrar _MENU_ registros",
-                "zeroRecords": "No se encontraron resultados",
-                "emptyTable": "Ningún dato disponible en esta tabla",
-                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "search": "Buscar:",
-                "infoThousands": ",",
-                "loadingRecords": "Cargando...",
-                "paginate": {
-                    "first": "Primero",
-                    "last": "Último",
-                    "next": "Siguiente",
-                    "previous": "Anterior"
-                },
-                "aria": {
-                    "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sortDescending": ": Activar para ordenar la columna de manera descendente"
-                },
-                "buttons": {
-                    "copy": "Copiar",
-                    
-                }
-            },
-
-            initComplete: function() {
-                this.api().columns().every(function() {
-                    var that = this;
-                    $('input', this.footer()).on('keyup change clear', function() {
-                        if (that.search() !== this.value) {
-                            that
-                                .search(this.value)
-                                .draw();
+                    $('#tablaEstudiantes tfoot th').each(function() {
+                        var title = $(this).text();
+                        if (title != '') {
+                            $(this).html(
+                                '<input style="width: 100% !important; text-align: center;" type="text" placeholder="Buscar" />'
+                            );
                         }
                     });
-                });
-            }
-        });
-        tabla.on( 'draw', function () {
-            //ACORDION
-            var acc = document.getElementsByClassName("accordion");
-            var i;
-            
-            if(acc!=null){
-                for (i = 0; i < acc.length; i++) {
-                    acc[i].addEventListener("click", function() {
-                        this.classList.toggle("active");
-                        var panel = this.nextElementSibling;
-                        if (panel.style.maxHeight) {
-                        panel.style.maxHeight = null;
-                        } else {
-                        panel.style.maxHeight = panel.scrollHeight + "px";
-                        } 
-                    });
-                }
+                
+                var tabla = $('#tablaEstudiantes').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    lengthMenu: [
+                        [10, 25, 50, -1],
+                        [10, 25, 50, "All"]
+                    ],
+                    responsive: true,
+                    ajax: "{{ route('tablaCuentasPorCobrar')}}",
+                    columns: [{
+                            data: 'idCuenta',
+                            
+                        },
+                        {
+                            data: 'fecha_emision'
+                        },
+                        {
+                            data: 'fecha_vencimiento'
+                        },
+                        {
+                            data: 'full_name'
+                        },
+                        {
+                            data: 'concepto',
+                            
+                        },
+                        {
+                            data: 'semestre',
+                            
+                        },
+                        {
+                            data: 'debito',
+                            
+                        },
+                        {
+                            data: 'credito',
+                            
+                        },
+                        {
+                            data: 'saldo',
+                            
+                        },
+                        {
+                            data: 'cedulaEstudiante',
+                            
+                        },
+                        {
+                            data: 'IDEstudiante',
+                            
+                        },
+                       
+                        {
+                            data: 'estado',
+                            
+                        },
+                                    
+                        {
+                            data: 'btn',
+                        },
+                    ],
+                    dom: 'Blfrtip',
+                    buttons: [
+                        
+                        {
+                            extend: "excel",
+                            titleAttr: 'Exportar Excel',
+                            text: 'Excel',
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            titleAttr: 'Exportar PDF',
+                            text: 'PDF',
+                          
+                        },
+                        {
+                            extend: 'copyHtml5',
+                            titleAttr: 'Copiar Datos',
+                            text: 'Copiar',
+                           
+                        },
+                        {
+                            extend: 'print',
+                            text: 'Imprimir',
+                            titleAttr: 'Imprimir Listado',
+                            
+                        },
+                    ],
+                    language: {
+                        "processing": "Procesando...",
+                        "lengthMenu": "Mostrar _MENU_ registros",
+                        "zeroRecords": "No se encontraron resultados",
+                        "emptyTable": "Ningún dato disponible en esta tabla",
+                        "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "search": "Buscar:",
+                        "infoThousands": ",",
+                        "loadingRecords": "Cargando...",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        },
+                        "aria": {
+                            "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sortDescending": ": Activar para ordenar la columna de manera descendente"
+                        },
+                        "buttons": {
+                            "copy": "Copiar",
+                            
+                        }
+                    },
 
-            }  
-        } );
+                    initComplete: function() {
+                    this.api().columns().every(function() {
+                    var that = this;
+                    $('input', this.footer()).on('keyup change clear', function() {
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                    });
+                    });
+                    }
+        });
 
     });
-    
+
+
 </script>
 <script>
 
@@ -809,49 +817,30 @@ div.micelda {
                 api_key2: "API_1_2_5a4492f2d5137"
             },
             success: function (resp) {
-                
+                if (resp.respuesta == true) {
+                    if (resp.id_comprobante != "") {
+                        verpagocxc(resp.id_comprobante, resp.tipo_comprobante)
+                    }
+                    swal({
+                        title: "Excelente!",
+                        text: "Pago Eliminado",
+                        type: "success",
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+
+                } else {
+                    swal({
+                        title: "ERROR!",
+                        text: "Error en el proceso Vuelva a intentarlo",
+                        type: "error",
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
             }, error: function (xhr) {
                 erroresenajax(xhr);
             },
-        })
-    }
-
-    function eliminarpago(idPago) {
-        Swal.fire({
-            title: 'Seguro desea eliminar este pago?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'SI',
-            cancelButtonText: 'NO'
-        }).then((result) => {
-            if (result.value) {
-                $.ajax({
-                    type: "POST",
-                    url: '{{route("destroyPayStudente")}}',
-                    data: {
-                        '_token': '{{csrf_token()}}',
-                        'idCuenta' : `${idPago}`
-                    },
-                    success: function(response) {
-                        $(`#${idPago}`).css('display', 'none')
-                        Swal.fire(
-                            'El pago ha sido eliminado!',
-                            '',
-                            'success'
-                        );
-                        $('#tablaEstudiantes').DataTable().ajax.reload();
-                    },
-                    error: function(response) {
-                        Swal.fire(
-                            `${response.responseText}`,
-                            '',
-                            'error'
-                        );
-                    }
-                });
-            }
         })
     }
 /*
@@ -881,7 +870,7 @@ div.micelda {
     function filt() {
         console.log($('#filtrar').val())
 
-        /*{{--$.ajax({--}}
+        {{--$.ajax({--}}
         {{--    type: 'GET',--}}
         {{--    url: "{{ route('comprobantes') }}", //+ '/' + $('#filtrar').val(),--}}
         {{--    data: {--}}
@@ -892,7 +881,7 @@ div.micelda {
         {{--    }, error: function (xhr) {--}}
         {{--        console.log(xhr);--}}
         {{--    },--}}
-        {{--})--}}*/
+        {{--})--}}
     }
 
 

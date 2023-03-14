@@ -23,73 +23,51 @@ use Illuminate\Support\Facades\Session;
 use Validator;
 use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
+use Sentinel;
+
 
 class CuentasporcobrarController extends Controller
 {
     public function tablaCuentasPorCobrar()
     {
-        /*
-        $model = DB::table('cuentas_por_cobrar')
-            ->join('factura_detalles', 'factura_detalles.idCliente','=','cuentas_por_cobrar.cliente_id')
-            ->join('students2','students2.id','=','factura_detalles.idEstudiante')
-            ->join('pagos_factura','pagos_factura.idCliente','=','factura_detalles.idCliente')
-            ->join('pago_estudiante_detalles','pago_estudiante_detalles.idEstudiante','=','factura_detalles.idEstudiante')
-            ->join('users_profile','users_profile.id','=','pagos_factura.idUsuario')
-            ->join('students2_profile_per_year','students2_profile_per_year.idStudent','=','pago_estudiante_detalles.idEstudiante')
-            
-            ->select('cuentas_por_cobrar.id as idCuenta'
-                    ,'cuentas_por_cobrar.fecha_emision as fecha_emision',
-                    'cuentas_por_cobrar.fecha_vencimiento as fecha_vencimiento',
-                    'cuentas_por_cobrar.comprobante_id as comprobante_id',
-                    DB::raw("CONCAT(students2.nombres, ' ', students2.apellidos) AS full_name"),
-                    'cuentas_por_cobrar.concepto as concepto',
-                    'cuentas_por_cobrar.saldo as saldo',
-                    'cuentas_por_cobrar.debito as debito',
-                    DB::raw("cuentas_por_cobrar.saldo - cuentas_por_cobrar.debito as deuda"),
-                    'students2.ci as cedulaEstudiante',
-                    'students2.id as IDEstudiante',
-                    'pago_estudiante_detalles.estado as estado')
-            //->where('students2.ci','like',"%$valor%")
-            ->groupBy('cuentas_por_cobrar.id')
+        $model = Student2Profile::join('students2','students2.id','=','students2_profile_per_year.idStudent')
+            ->join('courses', 'students2_profile_per_year.idCurso', '=', 'courses.id')
+            ->select(
+                DB::raw("CONCAT(students2.nombres, ' ', students2.apellidos) AS full_name"),
+                'students2.ci as cedulaEstudiante',
+                'students2.id as IDEstudiante'
+            )
+            ->where('students2_profile_per_year.idPeriodo',$this->idPeriodoUser())
+            ->where('students2_profile_per_year.tipo_matricula','!=','Pre Matricula')
+            ->where('students2_profile_per_year.retirado','NO')
             ->get();
-*/
-       // $model2 = DB::table('cuentas_por_cobrar')->get();
-        $model = Cuentasporcobrar::
-                    join('students2_profile_per_year','students2_profile_per_year.id','=','cuentas_por_cobrar.cliente_id')        
-                    ->join('students2','students2.id','=','students2_profile_per_year.idStudent')
-                    ->join('courses', 'students2_profile_per_year.idCurso', '=', 'courses.id')
-                    ->join('Semesters', 'cuentas_por_cobrar.id_semesters','=', 'Semesters.id')
-                    ->select(
-                    'cuentas_por_cobrar.id as idCuenta'
-                    ,'cuentas_por_cobrar.fecha_emision as fecha_emision',
-                    'cuentas_por_cobrar.fecha_vencimiento as fecha_vencimiento',
-                    'cuentas_por_cobrar.comprobante_id as comprobante_id',
-                    'Semesters.nombsemt as semestre',
-                    DB::raw("CONCAT(students2.nombres, ' ', students2.apellidos) AS full_name"),
-                    'cuentas_por_cobrar.concepto as concepto',
-                    'cuentas_por_cobrar.saldo as saldo',
-                    'cuentas_por_cobrar.debito as debito',
-                    'cuentas_por_cobrar.credito as credito',
-                    \DB::raw('(CASE
-                        WHEN cuentas_por_cobrar.status = "1" THEN "POR VENCER"                        
-                        WHEN cuentas_por_cobrar.status = "2" THEN "PAGADA"                        
-                        WHEN cuentas_por_cobrar.status = "3" THEN "ABONADO"                        
-                        WHEN cuentas_por_cobrar.status = "4" THEN "EN PROCESO DE VERIFICACION"   
-                        WHEN cuentas_por_cobrar.status = "0" THEN "ELIMINADA"                        
-                        WHEN cuentas_por_cobrar.status = "10" THEN "PAGO RECHAZADO POR INCONSISTENCIA"   
-                        END) AS estado'),
-                    DB::raw("cuentas_por_cobrar.saldo - cuentas_por_cobrar.debito as deuda"),
-                    'students2.ci as cedulaEstudiante',
-                    'students2.id as IDEstudiante'
-                )->orderBy('cuentas_por_cobrar.status')
-                ->where('cuentas_por_cobrar.status','!=','0')
-                ->get();
-            
-       // dd($model);
+        /*$model = Cuentasporcobrar::
+            join('students2_profile_per_year','students2_profile_per_year.id','=','cuentas_por_cobrar.cliente_id')        
+            ->join('students2','students2.id','=','students2_profile_per_year.idStudent')
+            ->join('courses', 'students2_profile_per_year.idCurso', '=', 'courses.id')
+            ->join('Semesters', 'cuentas_por_cobrar.id_semesters','=', 'Semesters.id')
+            ->select(
+            'Semesters.nombsemt as semestre',
+            DB::raw("CONCAT(students2.nombres, ' ', students2.apellidos) AS full_name"),
+            'students2.ci as cedulaEstudiante',
+            'students2.id as IDEstudiante'
+            )->orderBy('cuentas_por_cobrar.status')
+            ->groupBy('IDEstudiante')
+            ->where('cuentas_por_cobrar.status','!=','0')
+            ->get();*/
         return Datatables::of($model)
-        ->addColumn('btn', 'UsersViews.colecturia.cuentas_cobrar.accion')
-        ->rawColumns(['btn'])
-            ->make(true);
+        ->addColumn('acordeon', 'UsersViews.colecturia.cuentas_cobrar.acordeon')
+        ->rawColumns(['acordeon'])
+        ->make(true);
+    }
+
+    public function destroyPayStudent(Request $request){
+        if(Sentinel::inRole('UsersViews.colecturia')){
+            $cuentaxpagar = Cuentasporcobrar::find($request->idCuenta);
+            $cuentaxpagar->delete();
+            return response('ok',200);
+        }
+        return response('Usuario no autorizado',400);
     }
 
     public  function verificacionPago($id){

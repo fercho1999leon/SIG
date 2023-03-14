@@ -1011,6 +1011,9 @@ Route::group(['middleware' => ['users']], function () {
         Route::post('pagoEstudianteManualProcesado','PaymentController@pagoEstudianteManualStore')->name('pagoEstudianteManualProcesado');
         Route::get('cancelarPago/{id}','PaymentController@cancelarPago')->name('cancelarPago');
 
+        //ELIMINAR PAGO DEL DEL ESTUDIANTE
+        Route::post('/cuentasporcobrar/colecturia/eliminar-pago','CuentasporcobrarController@destroyPayStudent')->name('destroyPayStudente');
+
     });
 
 

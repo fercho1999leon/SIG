@@ -883,13 +883,13 @@
 
 
 	<div class="text-right">
-		@if($cxc == '' || $cxc == null)
+		<!--@if($cxc == '' || $cxc == null)
 			@if ($dataProfile->idCurso == !null && $configuracionTransporte->valor == '1')
 				<input id="btn-matricular-estudiante" type="submit" class="mb-1 btn btn-primary btn-lg" value="{{$buttonCXC}}">
 				<input type="hidden" name="cxcCrear" id="cxcCrear" value="1">
 				<input type="hidden" name="cxcCrearID" id="cxcCrearID" value="{{$dataProfile->idStudent}}">
 			@endif
-		@endif
+		@endif-->
 
 		@if($cxc != null)
 		<!--

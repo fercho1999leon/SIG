@@ -1427,6 +1427,7 @@ class PayController extends Controller
         $pagos = PagoEstudianteDetalle::getDetailPaymentsByStudent($id, $student->idCurso);
         $tutor = User::find($course->idProfesor);
 */
+/*
         //Creacion de cuentas por pagar
         $dataProfile = Student2Profile::where('idStudent','=',$id)->first();
         
@@ -1491,6 +1492,7 @@ class PayController extends Controller
        // return view('UsersViews.colecturia.pagos.pagosEstudiante',
         //compact('student', 'course', 'tutor', 'pagos', 'becas', 'periodos', 'pagosPendientes', 'c','dia_pago','beca_estudiante'));
        // return redirect()->route('matricula');
+    */
     }
 
     public static function getStudentPase($id, $curso) {

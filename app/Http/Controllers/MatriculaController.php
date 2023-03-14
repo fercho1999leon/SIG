@@ -1193,7 +1193,8 @@ class MatriculaController extends Controller
         }
         $dataProfile->bloqueos()->attach($request->tipo_bloqueo);
         $dataProfile->save();
-        $this->creacionPagos($request->curso, $data, $nextYear = null);
+        //Creacion de las cuentas por cobrar
+        //$this->creacionPagos($request->curso, $data, $nextYear = null);
         DB::commit();
         
         return redirect()->route('matricula');
