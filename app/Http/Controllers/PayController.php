@@ -1394,7 +1394,7 @@ class PayController extends Controller
 
     //Pagos que debe realizar un estudiante
     public static function getStudent($id) {
-      /*
+  /*  
         $c = 1;
         $dia_pago = (int)ConfiguracionSistema::diaDePago()->valor;
         $periodos = PeriodoLectivo::all();
@@ -1426,8 +1426,7 @@ class PayController extends Controller
         $beca_estudiante = BecaDetalle::where('idEstudiante', $student->id)->get();
         $pagos = PagoEstudianteDetalle::getDetailPaymentsByStudent($id, $student->idCurso);
         $tutor = User::find($course->idProfesor);
-*/
-/*
+
         //Creacion de cuentas por pagar
         $dataProfile = Student2Profile::where('idStudent','=',$id)->first();
         
@@ -1492,7 +1491,54 @@ class PayController extends Controller
        // return view('UsersViews.colecturia.pagos.pagosEstudiante',
         //compact('student', 'course', 'tutor', 'pagos', 'becas', 'periodos', 'pagosPendientes', 'c','dia_pago','beca_estudiante'));
        // return redirect()->route('matricula');
-    */
+*/
+    }
+
+    public function crearCuotasColecturia(Request $request) {
+        if(Sentinel::inRole('UsersViews.colecturia')){
+
+            $dia_pago = (int)ConfiguracionSistema::diaDePago()->valor;
+            $student = Student2::with('becasDescuentos')
+                ->join('students2_profile_per_year', 'students2.id', '=', 'students2_profile_per_year.idStudent')
+                ->where('students2_profile_per_year.idPeriodo', $this->idPeriodoUser())
+                ->where('students2_profile_per_year.idStudent', $request->id)
+                ->select('students2.id', 'students2_profile_per_year.idCurso', 'students2.apellidos', 'students2.nombres', 'students2_profile_per_year.idPeriodo')
+                ->first();
+            $pagosPendientes = PagoEstudianteDetalle::getDetailPaymentsByStudent($request->id, $student->idCurso)->where('estado', 'PENDIENTE');
+            if( count($pagosPendientes) > 0){
+                foreach($pagosPendientes as $key => $pago ){
+                    $pago_mes = $pago->pago;
+                    if($pago_mes != null) {
+                        if($pago->prorroga == null){
+                            $fecha_pago = Carbon::createFromDate($pago_mes->anio, $pago_mes->mes+1, $dia_pago);
+                        }else{
+                            $fecha_pago = Carbon::createFromDate($pago_mes->anio, $pago_mes->mes+1, $dia_pago+$pago->prorroga);
+                            $now = Carbon::now();
+                            if($fecha_pago >= $now){
+                                $pagosPendientes->forget($key);
+                            }
+                        }
+                    }
+                }
+            }
+        
+            //Creacion de cuentas por pagar
+            $dataProfile = Student2Profile::where('idStudent','=',$request->id)->first();
+            
+            $cuentasxcobrar_id = Cuentasporcobrar::latest('id')->first();
+            if($cuentasxcobrar_id == null){
+                $cuentasxcobrar_id = new \stdClass();
+                $cuentasxcobrar_id->id = 1;
+            }
+    
+            $semester = Semesters::where('id', '=', $request->id_semester)->first();  
+            
+            //if((Cuentasporcobrar::where('id_semesters',$semester->id)->where('cliente_id',$dataProfile->id)->get())->isEmpty()){
+                PayController::generarCuotas($request->cuotas,$request->fecha_inicio,$cuentasxcobrar_id->id+1,$request->costo_cuota_total,$dataProfile->id,$semester->id);
+            //}
+           return response('Cuotas agregadas',200);
+        }
+        return response('Usuario no autorizado',401);
     }
 
     public static function getStudentPase($id, $curso) {
@@ -1593,7 +1639,6 @@ class PayController extends Controller
       }
     public static function generarCuotas($cuotas,$fechaInicial,$comprobante,$costoSemestre,$estudiante,$id_semester){
         $j=1;
-        //dd($fechaInicial);
         $fechaPago = Carbon::createFromFormat('Y-m-d',$fechaInicial)->addDay(30);
         for ($i=0; $i < $cuotas ; $i++) { 
             $cxc = new Cuentasporcobrar();

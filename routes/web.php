@@ -933,7 +933,7 @@ Route::group(['middleware' => ['users']], function () {
         Route::post('realizarpago/', 'CuentasporcobrarController@realizarPago')->name('realizarpago');
         Route::get('verificacionPago/{id}', 'CuentasporcobrarController@verificacionPago')->name('verificacionPago');
         Route::post('verificacionPagoStore', 'CuentasporcobrarController@verificacionPagoStore')->name('verificacionPagoStore');
-        
+
 
         Route::get('filtrar/', 'CuentasporcobrarController@filtrar')->name('filtrar');
 
@@ -1011,9 +1011,10 @@ Route::group(['middleware' => ['users']], function () {
         Route::post('pagoEstudianteManualProcesado','PaymentController@pagoEstudianteManualStore')->name('pagoEstudianteManualProcesado');
         Route::get('cancelarPago/{id}','PaymentController@cancelarPago')->name('cancelarPago');
 
-        //ELIMINAR PAGO DEL DEL ESTUDIANTE
+        //ELIMINAR PAGO DEL ESTUDIANTE
         Route::post('/cuentasporcobrar/colecturia/eliminar-pago','CuentasporcobrarController@destroyPayStudent')->name('destroyPayStudente');
-
+        //CREAR PAGO DEL ESTUDIANTE
+        Route::post('/cuentasporcobrar/colecturia/crear-pago','PayController@crearCuotasColecturia')->name('StorePayStudente');
     });
 
 

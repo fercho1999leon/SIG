@@ -96,11 +96,6 @@ div.micelda {
         @endif
         <div class="col-lg-12 titulo-separacion">
             <h1 class="title-page">Cuentas por Cobrar </h1>
-            <div class="agregarSeccionCont">
-                <a href="">
-                    <button class="btn btn-primary">HOLA</button>
-                </a>
-            </div>
         </div>
     </div>
     
@@ -130,8 +125,17 @@ div.micelda {
 </div>
 <div class="modal fade" id="bloqueoEstudiante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 </div>
-<div class="modal fade" id="importar" role="dialog">
+<div class="modal fade" id="modal-editpagocxc" role="dialog">
     <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Editar Pago</h4>
+            </div>
+            <div class="modal-body" id="animacionpagos">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
         <!--
             <div class="modal-content">
                 <div class="modal-header">
@@ -155,8 +159,6 @@ div.micelda {
                     <span aria-hidden="true">×</span></button>
                 <h4 class="modal-title">
                     Pagos
-                   
-
                     <button onclick="nuevopago()" type="button" data-toggle="tooltip" data-original-title="Nuevo Pago" aria-hidden="true" class="btn btn-primary ">
                         <i class="fa fa-money "></i> &nbsp;Pagar Cuenta de Forma Manual Colecturia
                     </button>
@@ -466,6 +468,7 @@ div.micelda {
 
 @endsection
 @section('scripts')
+
 <script type="text/javascript" language="javascript"
     src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js">
 </script>
@@ -491,7 +494,7 @@ div.micelda {
 <script type="text/javascript"> 
     let idPago;
     $(document).ready(function() {
-                        
+                                
         $('#tablaEstudiantes tfoot th').each(function() {
             var title = $(this).text();
             if (title != '') {
@@ -706,7 +709,6 @@ div.micelda {
 
     }
     function pagarCuota()
-    
     {}
 
     function nuevopago() {
@@ -718,6 +720,10 @@ div.micelda {
     }
     function verComprobantePago(){
         $('#modal-fotopago').modal('show');
+    }
+
+    function editpaycxc(id_comprobante, tipo_comprobante, cliente_id,fechaP,fechaV,concepto,saldo){
+        $('#modal-editpagocxc').modal('show');
     }
 
     function verpagocxc(id_comprobante, tipo_comprobante, cliente_id,fechaP,fechaV,concepto,saldo) {
@@ -854,6 +860,50 @@ div.micelda {
             }
         })
     }
+
+    function crearcuotacxc(dataForm) {
+        Swal.fire({
+            title: 'Creacion de pagos para estudiantes.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'SI',
+            cancelButtonText: 'NO'
+        }).then((result) => {
+            if (result.value) {
+                console.log(dataForm);
+                $.ajax({
+                    type: "POST",
+                    url: '{{route("StorePayStudente")}}',
+                    data: {
+                        '_token': '{{csrf_token()}}',
+                        'id':`${dataForm.id_student}`,
+                        'fecha_inicio' : `${dataForm.fecha_pago_inicio}`,
+                        'costo_cuota_total' : `${dataForm.valor_cuota}`,
+                        'cuotas' : `${dataForm.numero_cuotas}`,
+                        'id_semester' : `${dataForm.id_semestre_cuota}`,
+                    },
+                    success: function(response) {
+                        Swal.fire(
+                            'El pago se ha creado!',
+                            '',
+                            'success'
+                        );
+                        $('#tablaEstudiantes').DataTable().ajax.reload();
+                    },
+                    error: function(response) {
+                        Swal.fire(
+                            `${response.responseText}`,
+                            '',
+                            'error'
+                        );
+                    }
+                });
+            }
+        })
+    }
+
 /*
     $(function () {
         $('#pago_fecha').datetimepicker({

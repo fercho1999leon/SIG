@@ -1706,10 +1706,10 @@ class MatriculaController extends Controller
 
         $dataProfile->save();
         DB::commit();
-        if(isset($request->cxcCrear)){
+        /*if(isset($request->cxcCrear)){
             $matriculaCuotas = new PayController;
             $matriculaCuotas->getStudent((int)$dataProfile->idStudent);
-        }
+        }*/
 
         //$matriculaCuotas = new PayController;
         //$matriculaCuotas->getStudent((int)$dataProfile->idStudent);

@@ -32,6 +32,7 @@
     <link rel="manifest" href="{{ secure_asset('favicon/site.webmanifest') }}">
     <link rel="mask-icon" href="{{ secure_asset('favicon/favicon.svg') }}" color="#5bbad5">
     <link rel="shortcut icon" href="{{ secure_asset('favicon/favicon.svg') }}">
+
 	@yield('assets')
 
 	
@@ -70,6 +71,9 @@
 			});
 		});
 	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js" type="text/javascript"></script>
+
+	
 </body>
 
 </html>

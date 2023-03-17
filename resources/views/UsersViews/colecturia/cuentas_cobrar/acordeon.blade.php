@@ -1,5 +1,6 @@
 @php
   use App\Cuentasporcobrar;
+  use App\Student2;
   $cuentas_por_cobrar = Cuentasporcobrar::
           join('students2_profile_per_year','students2_profile_per_year.id','=','cuentas_por_cobrar.cliente_id')        
           ->join('students2','students2.id','=','students2_profile_per_year.idStudent')
@@ -31,10 +32,51 @@
       ->where('cuentas_por_cobrar.status','!=','0')
       ->where('students2.id',$IDEstudiante)
       ->get();
+  $semestre_of_carrer = Student2::join('students2_profile_per_year','students2_profile_per_year.id','=','students2.id')
+      ->join('courses','courses.id','=','students2_profile_per_year.idCurso')
+      ->join('Semesters','Semesters.career_id','=','courses.id_career')
+      ->select('Semesters.id as id','Semesters.nombsemt as nombre')
+      ->where('students2.id',$IDEstudiante)
+      ->get(); 
 @endphp
 
 <button class="accordion" id="{{$IDEstudiante}}">{{$full_name}}</button>
 <div class="panel" id="#{{$IDEstudiante}}">
+  <form class="form-inline" id="form-crear-pago-{{$IDEstudiante}}">
+    <div class="form-group mt-5">
+      <input type="text" id="id_student" name="id_student" class="form-control hide " value="{{$IDEstudiante}}" required>
+    </div>
+    <div class="form-group mt-5">
+      <label for="fecha_pago_inicio">Fecha de Inicio</label>
+      <input type="date" id="fecha_pago_inicio" name="fecha_pago_inicio" class="form-control" required>
+    </div>
+    <div class="form-group mt-5">
+      <label for="valor_cuota">Saldo</label>
+      <div class="input-group">
+        <div class="input-group-addon">$</div>
+        <input type="number" class="form-control" id="valor_cuota" step="any" placeholder="Valor a pagar" required>
+      </div>
+    </div>
+    <div class="form-group mt-5">
+      <label for="numero_cuotas">N° Cuotas</label>
+      <select class="form-control" id="numero_cuotas">
+        @php
+          for($i = 1 ; $i<=20 ; $i++){
+            echo "<option value='".$i."'>".$i."</option>";
+          }
+        @endphp        
+      </select>
+    </div>
+    <div class="form-group mt-5">
+      <label for="id_semestre_cuota">Semestre</label>
+      <select class="form-control" id="id_semestre_cuota">
+        @foreach ($semestre_of_carrer as $semestre)
+          <option value="{{$semestre->id}}">{{$semestre->nombre}}</option>
+        @endforeach      
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-5" id="btncrearpagos-{{$IDEstudiante}}" >Crear cuotas</button>
+  </form>
   <table class="table table-condensed">
     <thead>
       <tr>
@@ -47,7 +89,6 @@
         <th>Saldo</th>
         <th>Debito</th>
         <th>Credito</th>
-        <th>Deuda</th>
         <th>Estado</th>
         <th>Accion</th>
       </tr>
@@ -64,7 +105,6 @@
           <td>{{$cuentas->saldo}}</td>
           <td>{{$cuentas->debito}}</td>
           <td>{{$cuentas->credito}}</td>
-          <td>{{$cuentas->deuda}}</td>
           <td>{{$cuentas->estado}}</td>
           <td>
             @include('UsersViews.colecturia.cuentas_cobrar.accion',[
@@ -81,4 +121,24 @@
     </tbody>
   </table>
 </div>
+<script>
+  $('#form-crear-pago-{{$IDEstudiante}}').on("submit",function(e){
+    $('#btncrearpagos-{{$IDEstudiante}}').addClass('disabled');
+    setTimeout(() => {
+      $('#btncrearpagos-{{$IDEstudiante}}').removeClass('disabled');
+    }, 50);
+    
+    e.preventDefault();
+    const dataForm = {
+      id_student:e.target['id_student'].value,
+      fecha_pago_inicio:e.target['fecha_pago_inicio'].value,
+      valor_cuota:e.target['valor_cuota'].value,
+      numero_cuotas:e.target['numero_cuotas'].value,
+      id_semestre_cuota:e.target['id_semestre_cuota'].value
+    }
+    console.log(dataForm);
+    crearcuotacxc(dataForm);
+
+  });
+</script>
 
