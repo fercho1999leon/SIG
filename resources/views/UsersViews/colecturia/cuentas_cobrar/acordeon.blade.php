@@ -68,6 +68,13 @@
       </select>
     </div>
     <div class="form-group mt-5">
+      <label for="concepto_pago">Concepto</label>
+      <select class="form-control" id="concepto_pago">
+        <option value='Cuota de Semestre'>Cuota de Semestre</option>
+        <option value='Matricula del Semestre'>Matricula del Semestre</option>
+      </select>
+    </div>
+    <div class="form-group mt-5">
       <label for="id_semestre_cuota">Semestre</label>
       <select class="form-control" id="id_semestre_cuota">
         @foreach ($semestre_of_carrer as $semestre)
@@ -134,9 +141,9 @@
       fecha_pago_inicio:e.target['fecha_pago_inicio'].value,
       valor_cuota:e.target['valor_cuota'].value,
       numero_cuotas:e.target['numero_cuotas'].value,
-      id_semestre_cuota:e.target['id_semestre_cuota'].value
+      id_semestre_cuota:e.target['id_semestre_cuota'].value,
+      concepto_pago:e.target['concepto_pago'].value
     }
-    console.log(dataForm);
     crearcuotacxc(dataForm);
 
   });

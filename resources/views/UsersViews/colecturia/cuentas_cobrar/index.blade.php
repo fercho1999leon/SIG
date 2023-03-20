@@ -883,6 +883,7 @@ div.micelda {
                         'costo_cuota_total' : `${dataForm.valor_cuota}`,
                         'cuotas' : `${dataForm.numero_cuotas}`,
                         'id_semester' : `${dataForm.id_semestre_cuota}`,
+                        'concepto' : `${dataForm.concepto_pago}`
                     },
                     success: function(response) {
                         Swal.fire(

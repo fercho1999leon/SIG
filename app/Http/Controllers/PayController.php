@@ -1534,7 +1534,7 @@ class PayController extends Controller
             $semester = Semesters::where('id', '=', $request->id_semester)->first();  
             
             //if((Cuentasporcobrar::where('id_semesters',$semester->id)->where('cliente_id',$dataProfile->id)->get())->isEmpty()){
-                PayController::generarCuotas($request->cuotas,$request->fecha_inicio,$cuentasxcobrar_id->id+1,$request->costo_cuota_total,$dataProfile->id,$semester->id);
+                PayController::generarCuotas($request->cuotas,$request->fecha_inicio,$cuentasxcobrar_id->id+1,$request->costo_cuota_total,$dataProfile->id,$semester->id,$request->concepto);
             //}
            return response('Cuotas agregadas',200);
         }
@@ -1637,7 +1637,7 @@ class PayController extends Controller
           //compact('student', 'course', 'tutor', 'pagos', 'becas', 'periodos', 'pagosPendientes', 'c','dia_pago','beca_estudiante'));
          // return redirect()->route('matricula');
       }
-    public static function generarCuotas($cuotas,$fechaInicial,$comprobante,$costoSemestre,$estudiante,$id_semester){
+    public static function generarCuotas($cuotas,$fechaInicial,$comprobante,$costoSemestre,$estudiante,$id_semester,$concepto = null){
         $j=1;
         $fechaPago = Carbon::createFromFormat('Y-m-d',$fechaInicial)->addDay(30);
         for ($i=0; $i < $cuotas ; $i++) { 
@@ -1651,7 +1651,7 @@ class PayController extends Controller
             $cxc->cliente_id  =  $estudiante;
             $cxc->saldo = $costoSemestre/$cuotas;
             $cxc->id_semesters = $id_semester;
-            $cxc->concepto  =  'Cuota de Semestre';
+            $cxc->concepto  =  $concepto=!null?$concepto:'Cuota de Semestre';
             $cxc->save();
             DB::commit();
             $j++;
