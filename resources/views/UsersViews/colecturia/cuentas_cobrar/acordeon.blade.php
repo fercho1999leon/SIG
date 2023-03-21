@@ -69,10 +69,11 @@
     </div>
     <div class="form-group mt-5">
       <label for="concepto_pago">Concepto</label>
-      <select class="form-control" id="concepto_pago">
+      <input class="form-control" list="concepto_pago" name="concepto_pago" required>
+      <datalist id="concepto_pago">
         <option value='Cuota de Semestre'>Cuota de Semestre</option>
         <option value='Matricula del Semestre'>Matricula del Semestre</option>
-      </select>
+      </datalist>
     </div>
     <div class="form-group mt-5">
       <label for="id_semestre_cuota">Semestre</label>
@@ -145,7 +146,6 @@
       concepto_pago:e.target['concepto_pago'].value
     }
     crearcuotacxc(dataForm);
-
   });
 </script>
 
