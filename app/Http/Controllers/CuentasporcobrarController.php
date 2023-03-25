@@ -35,7 +35,8 @@ class CuentasporcobrarController extends Controller
             ->select(
                 DB::raw("CONCAT(students2.nombres, ' ', students2.apellidos) AS full_name"),
                 'students2.ci as cedulaEstudiante',
-                'students2.id as IDEstudiante'
+                'students2.id as IDEstudiante',
+                'courses.id as idCurso'
             )
             ->where('students2_profile_per_year.idPeriodo',$this->idPeriodoUser())
             ->where('students2_profile_per_year.tipo_matricula','!=','Pre Matricula')
@@ -55,6 +56,7 @@ class CuentasporcobrarController extends Controller
             ->groupBy('IDEstudiante')
             ->where('cuentas_por_cobrar.status','!=','0')
             ->get();*/
+            //dd($model->where('cedulaEstudiante','0401862362'));
         return Datatables::of($model)
         ->addColumn('acordeon', 'UsersViews.colecturia.cuentas_cobrar.acordeon')
         ->rawColumns(['acordeon'])
@@ -212,9 +214,8 @@ class CuentasporcobrarController extends Controller
                                 ->get();
                         }*/
         }   
-     //dd($model);
-    $estudiantes = DB::table('students2')->select('id','nombres','apellidos','ci')->get();
-       
+    
+        $estudiantes = DB::table('students2')->select('id','nombres','apellidos','ci')->get();
         return view('UsersViews.colecturia.cuentas_cobrar.index',["comprobantes" => $model, "estudiantes" => $estudiantes]);
     }
 

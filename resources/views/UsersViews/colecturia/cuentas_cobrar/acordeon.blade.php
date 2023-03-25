@@ -1,6 +1,7 @@
 @php
   use App\Cuentasporcobrar;
   use App\Student2;
+  use App\Course;
   $cuentas_por_cobrar = Cuentasporcobrar::
           join('students2_profile_per_year','students2_profile_per_year.id','=','cuentas_por_cobrar.cliente_id')        
           ->join('students2','students2.id','=','students2_profile_per_year.idStudent')
@@ -32,11 +33,9 @@
       ->where('cuentas_por_cobrar.status','!=','0')
       ->where('students2.id',$IDEstudiante)
       ->get();
-  $semestre_of_carrer = Student2::join('students2_profile_per_year','students2_profile_per_year.id','=','students2.id')
-      ->join('courses','courses.id','=','students2_profile_per_year.idCurso')
-      ->join('Semesters','Semesters.career_id','=','courses.id_career')
+      $semestre_of_carrer = Course::join('Semesters','Semesters.career_id','=','courses.id_career')
       ->select('Semesters.id as id','Semesters.nombsemt as nombre')
-      ->where('students2.id',$IDEstudiante)
+      ->where('courses.id',$idCurso)
       ->get(); 
 @endphp
 
