@@ -11,3 +11,4 @@ package-lock.json
 .env.*
 docker-compose.*
 node_modules
+error_log
