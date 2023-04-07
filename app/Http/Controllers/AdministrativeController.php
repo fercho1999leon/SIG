@@ -7,6 +7,7 @@ use App\Administrative;
 use Sentinel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
+use Illuminate\Support\Facades\DB;
 
 class AdministrativeController extends Controller
 {
@@ -88,12 +89,14 @@ class AdministrativeController extends Controller
 		$this->validate($request, [
 			'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000'
 		]);
-       
+        $file = $request->image;
         //$path = $request->file('image')->store('avatars');
-        $path = Storage::disk('public')->putFile('avatars', $request->image,'public');
+        $path = Storage::disk('public')->putFile('avatars', $file,'public');
+        $respSql = DB::select("SELECT insertar_archivo_base64(?, ?, ?, ?, ?)", array(explode('.',$file->getClientOriginalName())[0], base64_encode(file_get_contents($file->getRealPath())), $file->getClientOriginalExtension(), $path, Sentinel::getUser()->id));
         $user = Administrative::findBySentinelid(Sentinel::getUser()->id);
         $user->url_imagen = $path;
         $user->save();
+        dd($respSql);
         return redirect('perfil');
     }
 }
