@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Administrative;
+use App\ArchivoBase64;
 use Sentinel;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\File;
 use Illuminate\Support\Facades\DB;
 
 class AdministrativeController extends Controller
@@ -88,15 +88,31 @@ class AdministrativeController extends Controller
 
 		$this->validate($request, [
 			'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000'
-		]);
-        $file = $request->image;
-        //$path = $request->file('image')->store('avatars');
-        $path = Storage::disk('public')->putFile('avatars', $file,'public');
-        $respSql = DB::select("SELECT insertar_archivo_base64(?, ?, ?, ?, ?)", array(explode('.',$file->getClientOriginalName())[0], base64_encode(file_get_contents($file->getRealPath())), $file->getClientOriginalExtension(), $path, Sentinel::getUser()->id));
+		]);        
+        $this->UpLoadFileStorage($request);
+       // $respSql = DB::select("SELECT insertar_archivo_base64(?, ?, ?, ?, ?)", array(explode('.',$file->getClientOriginalName())[0], base64_encode(file_get_contents($file->getRealPath())), $file->getClientOriginalExtension(), $path, Sentinel::getUser()->id));
+        return redirect('perfil');
+    }
+    
+    private function UpLoadFileStorage($request){
+        //$path = Storage::disk('public')->putFile('avatars', $request->image,'public');
         $user = Administrative::findBySentinelid(Sentinel::getUser()->id);
+        //dd($user);
+        if($user->url_imagen!=null){
+            if(Storage::disk('public')->exists('avatars', $user->url_imagen)){
+                Storage::disk('public')->delete('avatars', $user->url_imagen);
+            }
+            ArchivoBase64::join('archivos_info','archivos_base64.id','=','archivos_info.archivos_base64_id')
+                ->where('ruta_archivo',$user->url_imagen)
+                ->where('user_id',Sentinel::getUser()->id)
+                ->delete();
+        }
+        $file = $request->image;
+        $path = Storage::disk('public')->putFile('avatars', $request->image,'public');
+        $respSql = DB::select("SELECT insertar_archivo_base64(?, ?, ?, ?, ?)", array(explode('.',$file->getClientOriginalName())[0], base64_encode(file_get_contents($file->getRealPath())), $file->getClientOriginalExtension(), $path, Sentinel::getUser()->id));
         $user->url_imagen = $path;
         $user->save();
-        dd($respSql);
-        return redirect('perfil');
+        if($respSql) return response('Error al cargar el archivo en la base de datos.',503);
+        return response('Avatar cargado correctamente.',201);
     }
 }

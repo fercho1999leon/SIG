@@ -14,6 +14,7 @@ use App\Administrative;
                 {{ Form::file('image', ['name' => 'image','accept' => 'image/x-png,image/gif,image/jpeg','class' => 'my-file']) }}
                 Cambiar foto de perfil
             </label>
+            {{ Form::text('url_image', $user_data->url_imagen,['hidden'])}}
             {{ Form::submit('Subir') }}
             {{ Form::close() }}
         @endif
