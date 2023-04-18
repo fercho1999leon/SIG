@@ -87,3 +87,373 @@ Stack trace:
 #6 Command line code(1): array_filter(Array, Object(Closure))
 #7 {main}
   thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:12:15 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method App\Http\Kernel::getMiddlewareGroups() in Command line code:1
+Stack trace:
+#0 {main}
+  thrown in Command line code on line 1
+[18-Apr-2023 16:12:15 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 Command line code(1): include_once()
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:12:50 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:12:50 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:12:58 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:12:58 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:13:07 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:13:07 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:13:50 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:13:50 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:13:58 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:13:58 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:14:07 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:14:07 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:14:50 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:14:50 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:14:58 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:14:58 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:15:07 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:15:07 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:15:50 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:15:50 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:15:58 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:15:58 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:16:50 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:16:50 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:16:58 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:16:58 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:17:50 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:17:50 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:17:58 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:17:58 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:18:50 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:18:50 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:18:58 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:18:58 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:19:50 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:19:50 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:19:58 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:19:58 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:20:58 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:20:58 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:21:58 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:21:58 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:23:41 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method App\Http\Kernel::getMiddlewareGroups() in Command line code:1
+Stack trace:
+#0 {main}
+  thrown in Command line code on line 1
+[18-Apr-2023 16:23:41 America/Bogota] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Auth\Access\Gate::policies() in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:221
+Stack trace:
+#0 Command line code(1): Illuminate\Support\Facades\Facade::__callStatic('policies', Array)
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 221
+[18-Apr-2023 16:23:41 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(582): include()
+#1 /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/vendor/composer/ClassLoader.php(433): Composer\Autoload\{closure}('/home/itrededu/...')
+#2 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\KardexExpor...')
+#3 [internal function]: spl_autoload_call('App\\KardexExpor...')
+#4 Command line code(1): class_exists('App\\KardexExpor...')
+#5 [internal function]: {closure}('App\\KardexExpor...')
+#6 Command line code(1): array_filter(Array, Object(Closure))
+#7 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
+[18-Apr-2023 16:23:41 America/Bogota] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\FromView' not found in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php:10
+Stack trace:
+#0 Command line code(1): include_once()
+#1 {main}
+  thrown in /home/itrededu/public_html/dev-sig.itred.edu.ec/dev-istred/apps/pined/app/KardexExport.php on line 10
