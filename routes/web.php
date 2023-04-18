@@ -903,6 +903,19 @@ Route::group(['middleware' => ['users']], function () {
         Route::get('tdDelete/{id}','DocumentsController@tdDelete')->name('tdDelete');
         Route::get('getTableTypeDocument','DocumentsController@getTableTypeDocument')->name('getTableTypeDocument');
 
+        /**
+         * Rutas para el modulo de peas
+         * @Author Fernando Leon Boada
+         */
+        Route::group(['prefix' => 'pea'], function (){
+            Route::get('/configuracion','ConfigurationController@peasIndex')->name('getPeaIndex');
+            Route::post('/add','ConfigurationController@peasStore')->name('setPeaStore');
+            Route::post('/delect','ConfigurationController@delectPea')->name('setPeaDelect');
+            Route::post('/view','ConfigurationController@viewDocumentPEA')->name('indexPeaView');
+            Route::post('/view/modal','ConfigurationController@viewModalPEA')->name('modalPeaView');
+            Route::get('/view/{id}','ConfigurationController@downloadDocumentPEA')->name('getPeaView');
+        });
+
     });
     
     Route::get('/carreras', 'CarrerasController@index')->name('carreras');
@@ -1540,6 +1553,10 @@ Route::group(['middleware' => ['users']], function () {
         //Descargar Adjunto-Tarea
         Route::get('/tareas/{archivo}', 'StudentController@descargarTarea')->name('descargaTarea');
         Route::get('/storage/deberes_adjuntos/{archivo}', 'StudentController@descargarTarea')->name('descargaTarea2');
+    });
+
+    Route::group(['middleware' => ['admin-student']], function () {
+        Route::get('DownloadDocumentStudent/{id}/{idUser}','DocumentsController@downloadDocumentStudent')->name('DownloadDocumentStudent');
     });
 
     /**

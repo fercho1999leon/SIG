@@ -88,31 +88,28 @@ class AdministrativeController extends Controller
 
 		$this->validate($request, [
 			'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000'
-		]);        
-        $this->UpLoadFileStorage($request);
-       // $respSql = DB::select("SELECT insertar_archivo_base64(?, ?, ?, ?, ?)", array(explode('.',$file->getClientOriginalName())[0], base64_encode(file_get_contents($file->getRealPath())), $file->getClientOriginalExtension(), $path, Sentinel::getUser()->id));
-        return redirect('perfil');
+		]);
+        $res = $this->UpLoadFileStorage($request);
+        
+        return $res;
     }
     
     private function UpLoadFileStorage($request){
-        //$path = Storage::disk('public')->putFile('avatars', $request->image,'public');
         $user = Administrative::findBySentinelid(Sentinel::getUser()->id);
-        //dd($user);
         if($user->url_imagen!=null){
             if(Storage::disk('public')->exists('avatars', $user->url_imagen)){
                 Storage::disk('public')->delete('avatars', $user->url_imagen);
             }
-            ArchivoBase64::join('archivos_info','archivos_base64.id','=','archivos_info.archivos_base64_id')
-                ->where('ruta_archivo',$user->url_imagen)
-                ->where('user_id',Sentinel::getUser()->id)
-                ->delete();
+            StorageController::DelectSqlStorage($user->url_imagen,Sentinel::getUser()->id,$this->idPeriodoUser());
         }
         $file = $request->image;
-        $path = Storage::disk('public')->putFile('avatars', $request->image,'public');
-        $respSql = DB::select("SELECT insertar_archivo_base64(?, ?, ?, ?, ?)", array(explode('.',$file->getClientOriginalName())[0], base64_encode(file_get_contents($file->getRealPath())), $file->getClientOriginalExtension(), $path, Sentinel::getUser()->id));
+        $path = Storage::disk('public')->putFile('avatars', $file,'public');
+
+        $respSql = StorageController::StorageSql($file,$path,explode('.',$file->getClientOriginalName())[0],$file->getClientOriginalExtension(),$user->id,$this->idPeriodoUser());
+           
         $user->url_imagen = $path;
         $user->save();
-        if($respSql) return response('Error al cargar el archivo en la base de datos.',503);
-        return response('Avatar cargado correctamente.',201);
+        if($respSql->getStatusCode() === 501) redirect('perfil')->withErrors(['error' => 'Error al cargar el archivo en la base de datos.']);
+        return redirect('perfil');
     }
 }
