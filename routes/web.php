@@ -908,15 +908,13 @@ Route::group(['middleware' => ['users']], function () {
          * @Author Fernando Leon Boada
          */
         Route::group(['prefix' => 'pea'], function (){
-            Route::get('/configuracion','ConfigurationController@peasIndex')->name('getPeaIndex');
-            Route::post('/add','ConfigurationController@peasStore')->name('setPeaStore');
-            Route::post('/delect','ConfigurationController@delectPea')->name('setPeaDelect');
+            Route::get('/configuracion','PeasController@peasIndex')->name('getPeaIndex');
+            Route::post('/add','PeasController@peasStore')->name('setPeaStore');
+            Route::post('/delect','PeasController@delectPea')->name('setPeaDelect');
             Route::group(['prefix' => 'view'], function (){
-                Route::post('/','ConfigurationController@viewDocumentPEA')->name('indexPeaView');
-                Route::post('/edit','ConfigurationController@viewModalPEA')->name('viewEditPEA');
-                Route::post('/edit/store','ConfigurationController@editPeaStore')->name('setEditPEA');
-                Route::post('/modal','ConfigurationController@viewModalPEA')->name('modalPeaView');
-                Route::get('/PDF/{id}','ConfigurationController@downloadDocumentPEA')->name('getPeaView');
+                Route::post('/edit','PeasController@viewModalPEA')->name('viewEditPEA');
+                Route::post('/edit/store','PeasController@editPeaStore')->name('setEditPEA');
+                Route::post('/modal','PeasController@viewModalPEA')->name('modalPeaView');
             });
         });
 
@@ -1561,6 +1559,16 @@ Route::group(['middleware' => ['users']], function () {
 
     Route::group(['middleware' => ['admin-student']], function () {
         Route::get('DownloadDocumentStudent/{id}/{idUser}','DocumentsController@downloadDocumentStudent')->name('DownloadDocumentStudent');
+    });
+
+    Route::group(['middleware' => ['teacher-student-admin']], function (){
+        Route::group(['prefix' => 'pea'], function (){
+            Route::group(['prefix' => 'view'], function (){
+                Route::post('/','PeasController@viewDocumentPEA')->name('indexPeaView');
+                Route::get('/index','PeasController@viewIndexPEADocente')->name('indexPeaDocenteView');
+                Route::get('/PDF/{id}','PeasController@downloadDocumentPEA')->name('getPeaView');
+            });
+        });
     });
 
     /**
