@@ -911,9 +911,13 @@ Route::group(['middleware' => ['users']], function () {
             Route::get('/configuracion','ConfigurationController@peasIndex')->name('getPeaIndex');
             Route::post('/add','ConfigurationController@peasStore')->name('setPeaStore');
             Route::post('/delect','ConfigurationController@delectPea')->name('setPeaDelect');
-            Route::post('/view','ConfigurationController@viewDocumentPEA')->name('indexPeaView');
-            Route::post('/view/modal','ConfigurationController@viewModalPEA')->name('modalPeaView');
-            Route::get('/view/{id}','ConfigurationController@downloadDocumentPEA')->name('getPeaView');
+            Route::group(['prefix' => 'view'], function (){
+                Route::post('/','ConfigurationController@viewDocumentPEA')->name('indexPeaView');
+                Route::post('/edit','ConfigurationController@viewModalPEA')->name('viewEditPEA');
+                Route::post('/edit/store','ConfigurationController@editPeaStore')->name('setEditPEA');
+                Route::post('/modal','ConfigurationController@viewModalPEA')->name('modalPeaView');
+                Route::get('/PDF/{id}','ConfigurationController@downloadDocumentPEA')->name('getPeaView');
+            });
         });
 
     });

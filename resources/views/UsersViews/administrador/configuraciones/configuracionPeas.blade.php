@@ -57,8 +57,7 @@
                                         @endif
                                     </th>
                                     <th style="text-align: center;">
-                                        <a class="btn btn-success m-1"
-                                            href="#">Modificar</a>
+                                        <button class="btn btn-success m-1" onclick="editPEA({{$pea->id}})">Modificar</button>
                                         <button class="btn btn-success m-1" onclick="viewPDF({{$pea->id}})">Visualizar</button>
                                         <button class="btn btn-danger m-1"
                                             onclick="eliminarPea({{$pea->idArchivoInfo}})">Eliminar</button>
@@ -73,7 +72,7 @@
         <!--BOTON MODAL CREAR PEA-->
         <div class="row wrapper">
             <div class="col-xs-12 bg-white p-1 text-right">
-                <button type="button" class="btn btn-primary btn-lg" id="btnAddPEA" update="{{false}}" idUpdate="{{-1}}">
+                <button type="button" class="btn btn-primary btn-lg" id="btnAddPEA">
                     Crear PEA
                 </button>
             </div>
@@ -138,11 +137,9 @@
                 }
             });
         });
-        $(function () {
-            $('#carreraId').on('change', onSelectSemestre);
-        });
 
         function onSelectSemestre() {
+            console.log('hello');
             var idCarrera = $(this).val();
             let html_datos = '<option value="{{ -1 }}">Seleccione</option>';
             if(idCarrera==-1){
@@ -160,9 +157,6 @@
             
         }
 
-        $(function () {
-            $('#semestreId').on('change', onSelectParalelo);
-        });
         function onSelectParalelo() {
             idSemestre = $(this).val();
             let html_datos = '<option value="{{ -1 }}">Seleccione</option>';
@@ -179,9 +173,6 @@
             }
         }
 
-        $(function () {
-            $('#cursoId').on('change', onSelectMateria);
-        });
         function onSelectMateria() {
             idMateria = $(this).val();
             let html_datos = '<option value="{{ -1 }}">Seleccione</option>';
@@ -253,10 +244,32 @@
             });
         }
 
+        function editPEA(id){
+            let update = true;
+            let idUpdate = id;
+            $.ajax({
+                url: "{{route('viewEditPEA')}}",
+                type: 'POST',
+                data: {
+                    '_token': $('input[name=_token]').val(),
+                    update,
+                    idUpdate
+                },
+                success: function(response) {
+                    $('#show-modal-pea').html(response);
+                    $('#show-modal-pea').modal();
+                    $("#filePea").fileinput();
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
+
         $(document).ready(function() {
             $('#btnAddPEA').on('click',()=>{
-                let update = $('#btnAddPEA').attr('update');
-                let idUpdate = $('#btnAddPEA').attr('idUpdate')
+                let update = false;
+                let idUpdate = -1;
                 $.ajax({
                     url: "{{route('modalPeaView')}}",
                     type: 'POST',

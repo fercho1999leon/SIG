@@ -20,9 +20,11 @@ use App\Course;
 use App\Career;
 use App\DocumentsPeas;
 use App\PeriodoLectivo;
+use App\Semesters;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class ConfigurationController extends Controller
 {
@@ -220,6 +222,43 @@ class ConfigurationController extends Controller
         return redirect()->route('getPeaIndex',compact('carreras','peas'));
     }
 
+    public function editPeaStore (Request $request){
+        $rules = [
+            'nombre_pea' => 'required|string',
+            'carreraId' => 'required',
+            'semestreId' => 'required',
+            'cursoId' => 'required',
+            'asignaturaId' => 'required',
+            'estado' => 'required',
+            'idPEA' => 'required',
+        ];
+        $messages = [
+            'nombre_pea.required' => 'El campo nombre es obligatorio.',
+            'carreraId.required' => 'El campo carrera es obligatorio.',
+            'semestreId.required' => 'El campo semestre es obligatorio.',
+            'cursoId.required' => 'El campo curso es obligatorio.',
+            'asignaturaId.required' => 'El asignatura nombre es obligatorio.',
+            'estado.required' => 'El campo estado es obligatorio.',
+            'idPEA.required' => 'El id del PEA es obligatorio.'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
+        $materia = Matter::find($request->asignaturaId);
+        $idUpdate = $request->idPEA;
+        //dd($request);    
+        DocumentsPeas::where('id',$idUpdate)
+            ->update([
+                'name' => $materia->nombre.'-'.$request->nombre_pea,
+                'idMetter' => $request->asignaturaId,
+                'state' => $request->estado
+            ]);
+        return redirect()->back();
+    }
+
     public function delectPea(Request $request){
         $fileInfo = ArchivosInfo::find($request->id);
         if(!empty($fileInfo)){
@@ -262,7 +301,7 @@ class ConfigurationController extends Controller
         $flagUpdate = $request->update;
         $idUpdate = $request->idUpdate;
         $carreras = Career::where('estado',1)->get();
-        if($flagUpdate){
+        if($flagUpdate=='true'){
             $document = DocumentsPeas::join('archivos_info','documents_peas.idArchivoInfo','=','archivos_info.id')
             ->join('matters','documents_peas.idMetter','=','matters.id')
             ->join('users_profile','matters.idDocente','=','users_profile.userid')
@@ -272,14 +311,17 @@ class ConfigurationController extends Controller
             ->join('Career','Semesters.career_id','=','Career.id')
             ->select('documents_peas.id as id', 'documents_peas.name as name', 
                     'documents_peas.state as state', 'documents_peas.idMetter as idMetter', 
-                    'matters.nombre as nombreMateria', 'courses.paralelo as idCurso',
+                    'matters.nombre as nombreMateria', 'courses.id as idCurso',
                     'courses.paralelo as nombreCurso','Semesters.nombsemt as nombreSemestre',
                     'Semesters.id as idSemestre', 'Career.id as idCarrera',
                     'Career.nombre as nombreCarrera'
                     )
-            ->where('documents_peas.id',$request->idUpdate)
+            ->where('documents_peas.id',$idUpdate)
             ->first();
-            return view('partials.modals.formPEAS',compact('flagUpdate','document', 'carreras'));
+            $semestres = Semesters::where('career_id',$document->idCarrera)->get();
+            $cursos = Course::where('id_semester',$document->idSemestre)->get();
+            $asignaturas = Matter::where('idCurso',$document->idCurso)->get();
+            return view('partials.modals.formPEAS',compact('flagUpdate','document', 'carreras', 'semestres', 'cursos', 'asignaturas', 'idUpdate'));
         }
         return view('partials.modals.formPEAS',compact('flagUpdate','carreras'));
     }
