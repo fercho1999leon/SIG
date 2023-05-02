@@ -101,7 +101,7 @@
                                                 </div>
                                             --}}
                                                 
-                                            <div class="gradosCalificaciones-item reporteCurso-item">
+                                            {{--<div class="gradosCalificaciones-item reporteCurso-item">
 												<div class="gradosCalificaciones-curso" width="50px" >
 													<a href="{{ route('indexPeaDocenteView')}}">
                                                         <img src="{{secure_asset('img/iconCalificaciones.svg')}}" class="mr-05" width="20" alt=""> 
@@ -110,7 +110,7 @@
                                                     <a href="{{ route('indexPeaDocenteView') }}" class="rep reportePorEstudiante__download-icon">
                                                     </a>
                                                 </div>
-											</div>
+											</div>--}}
 									</div>
 								</div>
                         </div>

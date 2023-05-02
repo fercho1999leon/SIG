@@ -49,6 +49,7 @@ class PeasController extends Controller
 
     public function viewIndexPEADocente (Request $request){
         try {
+            //dd(session('rol')->name);
             $materias = DocumentsPeas::join('archivos_info','documents_peas.idArchivoInfo','=','archivos_info.id')
             ->join('matters','documents_peas.idMetter','=','matters.id')
             ->join('users_profile','matters.idDocente','=','users_profile.userid')
