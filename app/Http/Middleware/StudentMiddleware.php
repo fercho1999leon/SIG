@@ -16,8 +16,8 @@ class StudentMiddleware
     public function handle($request, Closure $next)
     {
         if(session('rol')->name == 'Estudiante' )
-        return $next($request);
-    else
-       return redirect('/');
+            return $next($request);
+        else
+            return redirect('/');
     }
-}
+}   

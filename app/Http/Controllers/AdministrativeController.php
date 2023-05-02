@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Administrative;
+use App\ArchivoBase64;
 use Sentinel;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\File;
+use Illuminate\Support\Facades\DB;
 
 class AdministrativeController extends Controller
 {
@@ -88,12 +89,27 @@ class AdministrativeController extends Controller
 		$this->validate($request, [
 			'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000'
 		]);
-       
-        //$path = $request->file('image')->store('avatars');
-        $path = Storage::disk('public')->putFile('avatars', $request->image,'public');
+        $res = $this->UpLoadFileStorage($request);
+        
+        return $res;
+    }
+    
+    private function UpLoadFileStorage($request){
         $user = Administrative::findBySentinelid(Sentinel::getUser()->id);
+        if($user->url_imagen!=null){
+            if(Storage::disk('public')->exists('avatars', $user->url_imagen)){
+                Storage::disk('public')->delete('avatars', $user->url_imagen);
+            }
+            StorageController::DelectSqlStorage($user->url_imagen,Sentinel::getUser()->id,$this->idPeriodoUser());
+        }
+        $file = $request->image;
+        $path = Storage::disk('public')->putFile('avatars', $file,'public');
+
+        $respSql = StorageController::StorageSql($file,$path,explode('.',$file->getClientOriginalName())[0],$file->getClientOriginalExtension(),$user->id,$this->idPeriodoUser());
+           
         $user->url_imagen = $path;
         $user->save();
+        if($respSql->getStatusCode() === 501) redirect('perfil')->withErrors(['error' => 'Error al cargar el archivo en la base de datos.']);
         return redirect('perfil');
     }
 }
