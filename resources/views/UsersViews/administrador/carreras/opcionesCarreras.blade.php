@@ -88,29 +88,16 @@
                                                     </a>
                                                 </div>
 											</div>--}}                                     
-                                            {{--
-                                                <div class="gradosCalificaciones-item reporteCurso-item">
-                                                    <div class="gradosCalificaciones-curso" width="50px" >
-                                                        <a href="{{ route('syllabus')}}">
-                                                            <img src="{{secure_asset('img/iconCalificaciones.svg')}}" class="mr-05" width="20" alt=""> 
-                                                            Syllabus
-                                                        </a>
-                                                        <a href="{{ route('horario_Escolar') }}" class="rep reportePorEstudiante__download-icon">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            --}}
-                                                
-                                            {{--<div class="gradosCalificaciones-item reporteCurso-item">
+                                            <div class="gradosCalificaciones-item reporteCurso-item">
 												<div class="gradosCalificaciones-curso" width="50px" >
-													<a href="{{ route('indexPeaDocenteView')}}">
+													<a href="{{ route('syllabus')}}">
                                                         <img src="{{secure_asset('img/iconCalificaciones.svg')}}" class="mr-05" width="20" alt=""> 
-                                                        PEAs
+                                                        Syllabus
                                                     </a>
-                                                    <a href="{{ route('indexPeaDocenteView') }}" class="rep reportePorEstudiante__download-icon">
+                                                    <a href="{{ route('horario_Escolar') }}" class="rep reportePorEstudiante__download-icon">
                                                     </a>
                                                 </div>
-											</div>--}}
+											</div>
 									</div>
 								</div>
                         </div>

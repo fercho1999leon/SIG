@@ -89,14 +89,14 @@
                 </figure>
                 <h2>Generales</h2>
             </a>
-            
-            <a class="mrAdministrativo__link" href=" {{route('getPeaIndex')}} ">
+            {{---
+            <a class="mrAdministrativo__link" href=" {{route('configuracionesPorSeccion')}} ">
                 <figure class="mrAdministrativo--img">
-                    <img src="img/configuracionesParcial.svg" alt="">
+                    <img src="img/configuracionesGeneral.svg" alt="">
                 </figure>
-                <h2>PEAs</h2>
+                <h2>Asistencia</h2>
             </a>
-            
+            --}}
         </div>
     </div>
 @endsection

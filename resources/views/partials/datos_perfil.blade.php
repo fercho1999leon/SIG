@@ -14,24 +14,10 @@ use App\Administrative;
                 {{ Form::file('image', ['name' => 'image','accept' => 'image/x-png,image/gif,image/jpeg','class' => 'my-file']) }}
                 Cambiar foto de perfil
             </label>
-            {{ Form::text('url_image', $user_data->url_imagen,['hidden'])}}
             {{ Form::submit('Subir') }}
             {{ Form::close() }}
         @endif
     </div>
-    @if ($errors->any())
-        <ul>
-            <div class="row">
-                <div class="col-md-4"> <!-- Definir una columna de tamaño 4 -->
-                    <div class="row"> <!-- Crear una nueva fila -->
-                        @foreach ($errors->all() as $error)
-                            <div class="col-md-12 alert alert-dismissible alert-danger" style="margin-top: 5px;" role="alert">{{$error}}</div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </ul>
-    @endif
     <script>
         const submitBtn = document.querySelector('input[value="Subir"]');
         submitBtn.style.display = 'none';

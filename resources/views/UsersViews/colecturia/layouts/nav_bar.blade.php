@@ -100,6 +100,9 @@ use App\ConfiguracionSistema;
 					<span class="nav-label">Matrícula </span>
 				</a>
 			</li>
+			<li>
+				<a href=" {{url('/reporteActas')}} "><i class="fa fa-clipboard"></i>Actas de Calificaciones </a>
+			</li>
 			<!--<li>
 				<a href="{{route('listarCarrerasPagos')}}">
 					<i class="fa fa-usd"></i>

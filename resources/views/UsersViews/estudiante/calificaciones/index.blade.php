@@ -100,26 +100,25 @@
             <div class="r-calificacioneshijo-grid">
                 @foreach($matters as $matter)
                     @php
-                        $struct = ($matter->idEstructura != null);
-                        $mgo = $ppp->where('materiaId',$matter->id)->first();
+                    $struct = ($matter->idEstructura != null);
+                    $mgo = $ppp->where('materiaId',$matter->id)->first();
 
-                        if (strlen($parcial) > 3) {
-                            $promedios = new \Illuminate\Support\Collection($mgo->insumos);
+                    if (strlen($parcial) > 3) {
+                        $promedios = new \Illuminate\Support\Collection($mgo->insumos);
 
-                        } else {
-                            $promedios = new \Illuminate\Support\Collection($mgo->parciales);
-                            $examenQuimestral = $promedios->where('indicador',$parcial)->first();
-                        }
-                        //dd($mgo);
+                    } else {
+                        $promedios = new \Illuminate\Support\Collection($mgo->parciales);
+                        $examenQuimestral = $promedios->where('indicador',$parcial)->first();
+                    }
                     @endphp                   
                     <div class="r-calificacioneshijo-item ibox m-0">
                         <header class="r-calificaciones-header">
                             <img src="{{secure_asset('img/CURSO.svg')}}" class="r-calificaciones-iconCurso" width="16" alt="">
-                            @if (strlen($parcial) > 3 )
-                                @if($mgo->promedioFinal < 7 && $mgo->recuperacion < 7)
+                            <!--@if (strlen($parcial) > 3 )
+                                @if($mgo->promedioInicial != $mgo->promedioFinal)
                                     <p class="no-margin rep-ra">R.A.</p>
                                 @endif
-                            @endif
+                            @endif-->
                             <h3 class="r-calificacioneshijo-materia">
                                 {{$matter->nombre}}
                             </h3>
@@ -128,7 +127,7 @@
                                 <div></div>
                                 
                                 @if (!$struct)                         
-                                    <div>{{ $mgo->promedioFinal > $mgo->recuperacion ? bcdiv($mgo->promedioFinal, '1', 2) : bcdiv($mgo->recuperacion, '1', 2) }}</div>
+                                    <div>{{ bcdiv($mgo->promedioFinal, '1', 2) }}</div>
                                 @else
                                     <div>{{ ( (strlen($parcial) == 2) ? App\rangosCualitativo::getCalificacionCualitativa($matter->idEstructura, $examenQuimestral->promediop)['nota'] : ((strlen($parcial) > 3) ? App\rangosCualitativo::getCalificacionCualitativa($matter->idEstructura, $mgo->promedioFinal)['nota'] : App\rangosCualitativo::getCalificacionCualitativa($matter->idEstructura,$mgo->promedioquimestral)['nota'] ) ) }}</div>
                                 @endif
@@ -142,32 +141,35 @@
                         </header>
                       
                         @if (strlen($parcial) > 2)
-                            <section class="r-calificaciones-section ">
-                                <div class="ibox-content p-0 no-border" >
-                                
-                                    @foreach ($promedios as $supply)
-                                        <div class="calificaciones-insumoContainer">
-                                            <strong class="r-calificaciones-insumo">
-                                            
-                                                {{  
-                                                    $supply->nombre }} 
-                                                @if ($porcentajeInsumos !=0 && (strlen($parcial) == 4) && $supply->porcentaje != 0)
-                                                    @if (!$struct)
-                                                        {{ bcdiv($supply->nota, '1', 2)}}
-                                                    @else
-                                                        @php
-                                                            $porcentj = bcdiv( ( bcdiv($supply->nota, '1', 2) * 100) / $supply->porcentaje , '1', 2) ;
-                                                        @endphp
-                                                        {{ strlen($parcial) == 4 ? App\rangosCualitativo::getCalificacionCualitativa($matter->idEstructura, $porcentj)['nota'] : App\rangosCualitativo::getCalificacionCualitativa($matter->idEstructura, $porcentj)['nota'] }}
-                                                    @endif
+                      
+                        <section class="r-calificaciones-section ">
+                            <div class="ibox-content p-0 no-border" >
+                             
+                                @foreach ($promedios as $supply)
+                         
+                                    <div class="calificaciones-insumoContainer">
+                                        <strong class="r-calificaciones-insumo">
+                                          
+                                            {{  
+                                                 $supply->nombre }} 
+                                            @if ($porcentajeInsumos !=0 && (strlen($parcial) == 4) && $supply->porcentaje != 0)
+                                                @if (!$struct)
+                                                    {{ bcdiv($supply->nota, '1', 2)}}
                                                 @else
-                                                    @if (!$struct)
-                                                        {{ bcdiv($supply->nota, '1', 2) }}
-                                                    @else
-                                                        {{ strlen($parcial) == 4 ? App\rangosCualitativo::getCalificacionCualitativa($matter->idEstructura,bcdiv($supply->nota, '1', 2))['nota'] : App\rangosCualitativo::getCalificacionCualitativa($matter->idEstructura,bcdiv($supply->promediop, '1', 2))['nota'] }}
-                                                    @endif
+                                                    @php
+                                                        $porcentj = bcdiv( ( bcdiv($supply->nota, '1', 2) * 100) / $supply->porcentaje , '1', 2) ;
+                                                    @endphp
+                                                    {{ strlen($parcial) == 4 ? App\rangosCualitativo::getCalificacionCualitativa($matter->idEstructura, $porcentj)['nota'] : App\rangosCualitativo::getCalificacionCualitativa($matter->idEstructura, $porcentj)['nota'] }}
                                                 @endif
-                                            </strong>
+                                            @else
+                                                @if (!$struct)
+                                                    {{ bcdiv($supply->nota, '1', 2) }}
+                                                @else
+                                                    {{ strlen($parcial) == 4 ? App\rangosCualitativo::getCalificacionCualitativa($matter->idEstructura,bcdiv($supply->nota, '1', 2))['nota'] : App\rangosCualitativo::getCalificacionCualitativa($matter->idEstructura,bcdiv($supply->promediop, '1', 2))['nota'] }}
+                                                @endif
+                                            @endif
+                                        </strong>
+                                        @if (strlen($parcial) == 4)
                                             <div class="text-right">
                                                 <a class="getInsumo" href="" route="{{ route('insumoDetalles',['alumno' => $student->idStudent, 'insumo' => $supply->insumoId, 'parcial' => $parcial]) }}">
                                                     @if($supply->refuerzo != 0 )
@@ -177,24 +179,11 @@
                                                     @endif
                                                 </a>
                                             </div>
-                                        </div>
-                                        
-                                    @endforeach
-                                </div>
-                                <!--SE AGREGA LA VISUALIZACION DE PROMEDIO PARCIAL Y NOTA DE RECUPERACION-->
-                                @if ($mgo->recuperacion > 0)
-                                    <div class="calificaciones-insumoContainer">
-                                        <strong class="r-calificaciones-insumo">
-                                            --- PROMEDIO PARCIAL {{ bcdiv($mgo->promedioFinal, '1', 2) }}
-                                        </strong>
+                                        @endif
                                     </div>
-                                    <div class="calificaciones-insumoContainer">
-                                        <strong class="r-calificaciones-insumo">
-                                            --- RECUPERACION {{ bcdiv($mgo->recuperacion, '1', 2) }}
-                                        </strong>
-                                    </div>
-                                @endif
-                            </section>
+                                @endforeach
+                            </div>
+                        </section>
                         @endif
                     </div>
                 @endforeach

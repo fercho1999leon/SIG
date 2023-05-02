@@ -138,6 +138,4 @@ class CarrerasController extends Controller
         //return view('UsersViews.administrador.configuraciones.cursosEdicion',compact('careers'));
     }
 
-    
-
 }
