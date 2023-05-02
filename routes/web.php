@@ -903,6 +903,21 @@ Route::group(['middleware' => ['users']], function () {
         Route::get('tdDelete/{id}','DocumentsController@tdDelete')->name('tdDelete');
         Route::get('getTableTypeDocument','DocumentsController@getTableTypeDocument')->name('getTableTypeDocument');
 
+        /**
+         * Rutas para el modulo de peas
+         * @Author Fernando Leon Boada
+         */
+        Route::group(['prefix' => 'pea'], function (){
+            Route::get('/configuracion','PeasController@peasIndex')->name('getPeaIndex');
+            Route::post('/add','PeasController@peasStore')->name('setPeaStore');
+            Route::post('/delect','PeasController@delectPea')->name('setPeaDelect');
+            Route::group(['prefix' => 'view'], function (){
+                Route::post('/edit','PeasController@viewModalPEA')->name('viewEditPEA');
+                Route::post('/edit/store','PeasController@editPeaStore')->name('setEditPEA');
+                Route::post('/modal','PeasController@viewModalPEA')->name('modalPeaView');
+            });
+        });
+
     });
     
     Route::get('/carreras', 'CarrerasController@index')->name('carreras');
@@ -1540,6 +1555,20 @@ Route::group(['middleware' => ['users']], function () {
         //Descargar Adjunto-Tarea
         Route::get('/tareas/{archivo}', 'StudentController@descargarTarea')->name('descargaTarea');
         Route::get('/storage/deberes_adjuntos/{archivo}', 'StudentController@descargarTarea')->name('descargaTarea2');
+    });
+
+    Route::group(['middleware' => ['admin-student']], function () {
+        Route::get('DownloadDocumentStudent/{id}/{idUser}','DocumentsController@downloadDocumentStudent')->name('DownloadDocumentStudent');
+    });
+
+    Route::group(['middleware' => ['teacher-student-admin']], function (){
+        Route::group(['prefix' => 'pea'], function (){
+            Route::group(['prefix' => 'view'], function (){
+                Route::post('/','PeasController@viewDocumentPEA')->name('indexPeaView');
+                Route::get('/index','PeasController@viewIndexPEADocente')->name('indexPeaDocenteView');
+                Route::get('/PDF/{id}','PeasController@downloadDocumentPEA')->name('getPeaView');
+            });
+        });
     });
 
     /**

@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Administrative;
+use App\ArchivoBase64;
+use Illuminate\Http\Response;
 
 class DocumentsController extends Controller
 {
@@ -25,36 +27,21 @@ class DocumentsController extends Controller
         return view('UsersViews.administrador.documentacion.index');
     }
     public function getTableDocumentation(){
-        $user = Sentinel::getUser();
-        $user_profile = Administrative::findBySentinelid($user->id);
-        $student = Student2::where('idProfile', $user_profile->id)->first();
 
-        if($student != null){
-            $model = DocumentStudens::join('students2_profile_per_year','students2_profile_per_year.idStudent','=','document_studens.id_studen')
-            ->join('students2','students2.id','=','students2_profile_per_year.idStudent')
-            ->join('status','status.id','=','document_studens.id_status')
-            ->join('document_type','document_type.id','=','document_studens.id_document_type')    
-            ->select(
-                DB::raw("CONCAT(students2.nombres, ' ', students2.apellidos) AS full_name"),
-                'students2.ci',
-                'document_type.name_type as document_type','document_studens.document_name','document_studens.update_date','status.name'
-                ,'document_studens.id as id','document_studens.url as url')
-            ->where('students2.id', $student->id)    
-            ->orderBy('students2.ci')
-            ->get();
-        }else{
-            $model = DocumentStudens::join('students2_profile_per_year','students2_profile_per_year.idStudent','=','document_studens.id_studen')
-            ->join('students2','students2.id','=','students2_profile_per_year.idStudent')
-            ->join('status','status.id','=','document_studens.id_status')
-            ->join('document_type','document_type.id','=','document_studens.id_document_type')    
-            ->select(
-                DB::raw("CONCAT(students2.nombres, ' ', students2.apellidos) AS full_name"),
-                'students2.ci',
-                'document_type.name_type as document_type','document_studens.document_name','document_studens.update_date','status.name'
-                ,'document_studens.id as id','document_studens.url as url')
-            ->orderBy('students2.ci')
-            ->get();
-        }
+        $model = DocumentStudens::join('students2_profile_per_year','students2_profile_per_year.idStudent','=','document_studens.id_studen')
+        ->join('students2','students2.id','=','students2_profile_per_year.idStudent')
+        ->join('status','status.id','=','document_studens.id_status')
+        ->join('document_type','document_type.id','=','document_studens.id_document_type')
+        ->join('users_profile','users_profile.id','=','students2.idProfile')
+        ->join('users','users.id','=','users_profile.userid')
+        ->select(
+            DB::raw("CONCAT(students2.nombres, ' ', students2.apellidos) AS full_name"),
+            'students2.ci',
+            'document_type.name_type as document_type','document_studens.document_name','document_studens.update_date','status.name'
+            ,'document_studens.id as id','document_studens.url as url', 'users.id as idUser')
+        ->orderBy('students2.ci')
+        ->get();
+
       
         return Datatables::of($model)
         ->addColumn('btn', 'UsersViews.administrador.documentacion.acciones.indexDocuments')
@@ -224,25 +211,27 @@ class DocumentsController extends Controller
             ->join('students2','students2.id','=','students2_profile_per_year.idStudent')
             ->join('status','status.id','=','document_studens.id_status')
             ->join('document_type','document_type.id','=','document_studens.id_document_type')
+            ->join('users_profile','users_profile.id','=','students2.idProfile')
+            ->join('users','users.id','=','users_profile.userid')
             ->where('students2.id', $student->id)
             ->select('students2_profile_per_year.idStudent as idStudent',
                 'document_type.name_type as document_type','document_studens.document_name','document_studens.update_date','status.name'
-                ,'document_studens.id as id','document_studens.url as url' )
+                ,'document_studens.id as id','document_studens.url as url', 'users.id as idUser')
             ->orderBy('document_studens.document_name')
             ->get();
-
         }else{
             $model = DocumentStudens::join('students2_profile_per_year','students2_profile_per_year.idStudent','=','document_studens.id_studen')
             ->join('students2','students2.id','=','students2_profile_per_year.idStudent')
             ->join('status','status.id','=','document_studens.id_status')
             ->join('document_type','document_type.id','=','document_studens.id_document_type')
+            ->join('users_profile','users_profile.id','=','students2.idProfile')
+            ->join('users','users.id','=','users_profile.userid')
             ->select('students2_profile_per_year.idStudent as idStudent',
                 'document_type.name_type as document_type','document_studens.document_name','document_studens.update_date','status.name'
-                ,'document_studens.id as id','document_studens.url as url' )
+                ,'document_studens.id as id','document_studens.url as url' , 'users.id as idUser')
             ->orderBy('document_studens.document_name')
             ->get();
         }
-        
         
         return Datatables::of($model)
         ->addColumn('btn', 'UsersViews.estudiante.documentos.acciones.index')
@@ -269,6 +258,11 @@ class DocumentsController extends Controller
                 Session::flash('alert', "No puede agregar el mismo tipo de documento 2 veces...");
                 return redirect()->route('addDocument');
             }else{
+                StorageController::DelectSqlStorage('img/documentsStudents/'.$nombre_comprobante,Sentinel::getUser()->id,$this->idPeriodoUser());
+
+                $respSql = StorageController::StorageSql($documento,'img/documentsStudents/'.$nombre_comprobante,explode('.',$documento->getClientOriginalName())[0],$documento->getClientOriginalExtension(),Sentinel::getUser()->id,$this->idPeriodoUser());
+
+
                 $documento->move('img/documentsStudents/', $nombre_comprobante);
                 $model = new DocumentStudens;
                 $model->id_studen = $idStudent;
@@ -279,27 +273,48 @@ class DocumentsController extends Controller
                 $model->update_date = Carbon::now();
                 $model->id_status = $document_type->id_status;
                 $model->save();
+
+                if($respSql->getStatusCode() === 501) redirect('documentacionEstudiantil')->withErrors(['error' => 'Error al cargar el documento en la base de datos.']);
+                
                 return redirect()->route('documentacionEstudiantil');
             }
              
         }
-       
     }
     public function deleteDocument($id){
-       // dd($id);
         $documento = DocumentStudens::find($id);
         if(File::exists(public_path($documento->url))){
             File::delete(public_path($documento->url));
         }
+        StorageController::DelectSqlStorage($documento->url,Sentinel::getUser()->id,$this->idPeriodoUser());
         $documento->delete();
         return redirect()->route('documentacionEstudiantil')->with('message', '¡Eliminado Correctamente!')->with('type','success');        
     }
 
     public function rutaDocumento($id){
-        
         $documentType = DocumentType::find($id);
         //dd($documentType->docMuestra);
         return $documentType->docMuestra;
     }
- 
+
+    public function downloadDocumentStudent($id,$idUser){
+        $document = DocumentStudens::find($id);
+        $filepath = public_path($document->url);
+        if(!File::exists($filepath)){
+            $resp = StorageController::DownloadSqlStorage($document->url,$idUser,$this->idPeriodoUser()); 
+            if($resp->getStatusCode() === 201){
+                File::put($document->url, $resp->getContent());
+            }else if ($resp->getStatusCode() === 501){
+                return redirect('documentacionEstudiantil')->withErrors(['error'=>$resp->getContent()]);
+            }else{
+                return redirect('documentacionEstudiantil')->withErrors(['error'=>$resp->getContent()]);
+            }
+        }
+        $file = File::get($filepath);
+        $type = File::mimeType($filepath);
+        $response = new Response($file, 200);
+        $response->header("Content-Type", $type);
+        $response->header("Content-Disposition", ($document->document_extension==="pdf"?"inline;":"attachment;")."filename=" . $document->document_name);
+        return $response;
+    }
 }

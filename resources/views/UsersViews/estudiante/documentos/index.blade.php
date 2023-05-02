@@ -52,6 +52,20 @@ div.micelda {
         
     </div>  
 
+    @if ($errors->any())
+        <ul>
+            <div class="row">
+                <div class="col-md-4" style="position: fixed; right: 0; margin-right: 15px"> <!-- Definir una columna de tamaño 4 -->
+                    <div class="row"> <!-- Crear una nueva fila -->
+                        @foreach ($errors->all() as $error)
+                            <div class="col-md-12 alert alert-dismissible alert-danger " style="margin-top: 5px;" role="alert"><a href="#" class="close" data-dismiss="alert">&times;</a>{{$error}}</div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </ul>
+    @endif
+
     <div class="row wrapper" style="overflow-x: auto !important;">
         <table id="tablaEstudiantes" class="table table-striped table-hover table-bordered white-bg">
             <thead>
