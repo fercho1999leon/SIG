@@ -80,12 +80,6 @@ $parcialPeriodico = ParcialPeriodico::where('idPeriodo',(Usuario::where('id',$us
                     <i class="fa fa-book"></i>
                     <span class="nav-label">Agenda</span>
                 </a>
-            </li>
-            <li>
-                <a href="{{ route('indexPeaDocenteView') }}">
-                    <i class="fa fa-book"></i>
-                    <span class="nav-label">PEAs</span>
-                </a>
             </li>   
             <!--
                 <li>

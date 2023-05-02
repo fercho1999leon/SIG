@@ -253,6 +253,7 @@ class MatterController extends Controller
             return redirect()->back()->with('message', ['type'=> 'success', 'text' =>  "Materia $matter->nombre creada con éxito." ]);
     }
     public function getMatter($matter){
+        //echo 'entraaaa';
 		$matter =Matter::with('area')->find($matter);
         //$areas = Area::all();
         $docentes=DB::table('users_profile')->where('cargo', 'Docente')->orderBy('apellidos', 'ASC')->get();

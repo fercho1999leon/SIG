@@ -183,7 +183,7 @@ $progresoformativo = ConfiguracionSistema::where('nombre', 'PROGRESO_FORMATIVO')
                 </a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="#" clas title="Biblioteca">
+                        <a href="#" clas title="Carreras">
                             <i class="fa fa-clipboard"></i>
                             <span class="nav-label">Carrera</span>
                             <span class="fa arrow"></span>
