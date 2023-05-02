@@ -10,11 +10,21 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Sentinel;
 use App\Administrative;
+use App\ArchivosInfo;
 use App\ConfiguracionSistema;
 use App\Rol;
 use App\Area;
-use App\Matter;
 use App\Usuario;
+use App\Matter;
+use App\Course;
+use App\Career;
+use App\DocumentsPeas;
+use App\PeriodoLectivo;
+use App\Semesters;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class ConfigurationController extends Controller
 {
@@ -138,4 +148,5 @@ class ConfigurationController extends Controller
         $area->delete();
         return redirect()->route('configuracionesAreas');
     }
+    
 }

@@ -24,6 +24,7 @@ use App\Usuario;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Calificacion;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\BibliotecaReportController;
 use App\Cuentasporcobrar;
@@ -95,12 +96,14 @@ class StudentController extends Controller
 
         }*/
         $promedioTotal = 0;
+        //dd($data[0]);
         foreach($data as $libretaStudent)
         {
             foreach($libretaStudent->parcial as $parcialStudent)
             {
                 $promedioTotal = 0;
-            
+                $recuperacionParcial = 0;
+                $insumoRecuperacion = Supply::where(['nombre' => 'RECUPERATORIO', 'idMateria' => $parcialStudent->materiaId ])->first();
                 if($parcialStudent->visible > 0 )
                 {
                     foreach($parcialStudent->insumos as $insumoStudent)
@@ -110,8 +113,20 @@ class StudentController extends Controller
                             $promedioTotal = $promedioTotal + ($insumoStudent->nota * ($insumoStudent->porcentaje / 100));
                         }                    
                     }    
-                    $parcialStudent->promedioFinal = $promedioTotal;                
+                        
                 }
+                $parcialStudent->promedioFinal = $promedioTotal;
+                if($insumoRecuperacion != null){
+
+                    $activity = Activity::where(['idInsumo' => $insumoRecuperacion->id, 'parcial' => 'supletorio'])->first();
+                    if($activity != null)
+                    {
+                        $calificacion = Calificacion::where(['idActividad' => $activity->id, 'idEstudiante' => $libretaStudent->estudianteId])->first();
+                        if($calificacion != null)
+                            $recuperacionParcial = $calificacion->nota;
+                    }
+                }
+                $parcialStudent->recuperacion =  $recuperacionParcial;
             }
         }
         foreach($data as $studentLibretaPersonal)
@@ -128,6 +143,8 @@ class StudentController extends Controller
         if ($promediogo != null) {
             $ppp = new \Illuminate\Support\Collection($promediogo->parcial);
         }
+
+        
         $mostrar_libreta = ConfiguracionSistema::mostrarLibretaRepresentante();
         /* Destrezas del estudiante*/
         if ($course->seccion == "EI" || $course->grado == "Primero") {
