@@ -177,10 +177,22 @@
 				</div>
 			</div>  
 		@endif
+		
 @endsection
 @section('scripts')
 <script>
+	@if(session()->has('message'))
+		Swal.fire(
+			'El estudiante ha pasado de ciclo!',
+			'',
+			'success'
+		);
+	@endif
+</script>
+<script>
+	
 	$('#show-error').modal();
+	//$('#show-message').modal();
     var pasar_periodo = document.getElementById('btn-pasar-de-periodo')
     pasar_periodo.addEventListener('click', function() {
         this.setAttribute('disabled', true)
