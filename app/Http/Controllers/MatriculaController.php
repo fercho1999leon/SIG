@@ -150,7 +150,7 @@ class MatriculaController extends Controller
            
           
      
-            $this->creacionPagos($request->idCurso, $student, $PaseDeAnio);
+            //$this->creacionPagos($request->idCurso, $student, $PaseDeAnio);
             $this->creacionDeAsistenciaParcial($newStudent->id, $PaseDeAnio);
             $this->creacionNumeroDeMatricula($newStudent->id, $PaseDeAnio);
 
@@ -255,7 +255,7 @@ class MatriculaController extends Controller
                                 'retirado' => 'NO',
                             ]);
 
-                            $this->creacionPagos($CursoNew->id, $student->student()->first(), $PaseDeAnio);
+                            //$this->creacionPagos($CursoNew->id, $student->student()->first(), $PaseDeAnio);
                             $this->creacionDeAsistenciaParcial($newStudent->id, $PaseDeAnio);
 
                         }
@@ -436,7 +436,8 @@ class MatriculaController extends Controller
     }
 
     public function store(StudentRequest $request)
-    {       
+    {    
+        $existeEnPeriodo = null;
         $institution = Institution::first();
         $contador_matricula = ConfiguracionSistema::contadorMatricula();
         if ($contador_matricula->valor === '') {
@@ -599,11 +600,11 @@ class MatriculaController extends Controller
 
             
         }
-        /*
+        //Descomente esta linea - en caso que salga error al matricular volver a comentarla
         if ($existeEnPeriodo) {
             return Redirect::back()->withErrors(['warning' => 'El numero de cédula ya esta registrado para otro estudiante']);
         }
-        */
+        
         DB::beginTransaction();
 
         $discapacidadResp="";
@@ -695,6 +696,67 @@ class MatriculaController extends Controller
         ]);
         $dataProfile->save();
         $this->creacionDeAsistenciaParcial($dataProfile->id, null);
+
+        //----------------------------------------------------------------------------------------
+        if ($request->matricula != 'Pre Matricula') {
+            if (true) {
+                $periodoLectivo = PeriodoLectivo::findOrFail($this->idPeriodoUser());
+                if ($contador_matricula->valor == 'G') {
+                    $cont = Student2Profile::where('tipo_matricula', '!=', 'Pre Matricula')
+                        ->where('idPeriodo', $this->idPeriodoUser())
+                        ->get()
+                        ->count();
+                    $dataProfile->numero_matriculacion = substr($periodoLectivo->fecha_inicial, 0, 4) . "-" . sprintf("%04d", $cont + 1);
+                } else {
+                    $cont = Student2Profile::where('seccion', $dataProfile->seccion)
+                        ->where('tipo_matricula', '!=', 'Pre Matricula')
+                        ->where('idPeriodo', $this->idPeriodoUser())
+                        ->get()
+                        ->count();
+                    $dataProfile->numero_matriculacion = substr($periodoLectivo->fecha_inicial, 0, 4) . "-" . sprintf("%04d", $cont + 1);
+                }
+                $dataProfile->fecha_matriculacion = Carbon::now()->format('Y-m-d');
+
+                if ($data->idProfile == null) {
+                    // Creando el usuario
+                    $user = new User;
+                    $nombres = explode(" ", $data->nombres);
+                    $apellidos = explode(" ", $data->apellidos);
+                    $primerNombre = strtolower($nombres[0]);
+                    $primerApellido = strtolower($apellidos[0].substr($apellidos[1],0,1));
+
+                    $user_sentinel = [
+                        'email' => $request->correo ?? $primerNombre . '.' . $primerApellido . "@itred.edu.ec",
+                        'password' => "12345",
+                    ];
+                    $user = Sentinel::registerAndActivate($user_sentinel);
+                    $user->idPeriodoLectivo = $this->idPeriodoUser();
+                    $user->save();
+
+                    //registra el rol de los usuarios
+                    $role = Sentinel::findRoleByName("Estudiante");
+                    $role->users()->attach($user);
+                    $idProfile = DB::table('users_profile')
+                        ->insertGetId([
+                            'ci' => $data->ci,
+                            'nombres' => $data->nombres,
+                            'apellidos' => $data->apellidos,
+                            'sexo' => $data->sexo,
+                            'fNacimiento' => $data->fechaNacimiento,
+                            'correo' => $request->correo ?? $user->email,
+                            'dDomicilio' => $data->dDomicilio,
+                            'tDomicilio' => $data->tDomicilio,
+                            'cargo' => "Estudiante",
+                            'userid' => $user->id,
+                            'created_at' => date("Y-m-d H:i:s"),
+                        ]);
+                    $data->idProfile = $idProfile;
+                    $data->save();
+                }
+            }
+        }
+        //----------------------------------------------------------------------------------------
+        /*
         if (true) {
             $periodoLectivo = PeriodoLectivo::findOrFail($this->idPeriodoUser());
             if ($contador_matricula->valor == 'G') {
@@ -735,9 +797,9 @@ class MatriculaController extends Controller
                 $nombres = explode(" ", $data->nombres);
                 $apellidos = explode(" ", $data->apellidos);
                 $primerNombre = strtolower($nombres[0]);
-                $primerApellido = strtolower($apellidos[0]);
+                $primerApellido = strtolower(substr($apellidos[0],0,1).substr($apellidos[1],0,1));
                 $user_sentinel = [                    
-                    'email' => $request->correo ?? $primerNombre . '.' . $primerApellido . $data->id . "@itred.edu.ec",
+                    'email' => $request->correo ?? $primerNombre . '.' . $primerApellido . "@itred.edu.ec",
                     'password' => "12345",
                 ];
             
@@ -768,7 +830,7 @@ class MatriculaController extends Controller
 
                 $data->save();
             }
-        } 
+        } */
         #REGION GUARDAR BECA
         $beca = BecaDetalle::where('idEstudiante', $data->id)->first(); // Busca si el estudiante ya tiene una beca
         $request->beca = ($request->beca == null) ? 0 : $request->beca;
@@ -810,7 +872,7 @@ class MatriculaController extends Controller
         }
         $dataProfile->bloqueos()->attach($request->tipo_bloqueo);
         $dataProfile->save();
-        $this->creacionPagos($request->curso, $data, $nextYear = null);
+        //$this->creacionPagos($request->curso, $data, $nextYear = null);
         DB::commit();
         
         return redirect()->route('matricula');
@@ -818,6 +880,7 @@ class MatriculaController extends Controller
 
     public function import_excel_all(StudentRequest $request)
     {       
+        $existeEnPeriodo = null;
         $request = ((object)$request->request->all());
         $institution = Institution::first();
         $contador_matricula = ConfiguracionSistema::contadorMatricula();
@@ -955,19 +1018,18 @@ class MatriculaController extends Controller
                 $data->montoAyudaEconomica = "NA";
                 $data->montoCreditoEducativo = "NA";
             }else{
-                        $data->tipoBecaId = $request->tipoBecaId;
-                        $data->primeraRazonBecaId = $request->primeraRazonBecaId;
-                        $data->segundaRazonBecaId = $request->segundaRazonBecaId;
-                        $data->terceraRazonBecaId = $request->segundaRazonBecaId;
-                        $data->cuartaRazonBecaId = $request->cuartaRazonBecaId;
-                        $data->quintaRazonBecaId = $request->quintaRazonBecaId;
-                        $data->sextaRazonBecaId = $request->sextaRazonBecaId;
-                        $data->porcientoBecaCoberturaArancel = $request->porcientoBecaCoberturaArancel;
-                        $data->porcientoBecaCoberturaManuntencion = $request->porcientoBecaCoberturaManuntencion;
-                        $data->financiamientoBeca = $request->financiamientoBeca;
-                        $data->montoAyudaEconomica = $request->montoAyudaEconomica;
-                        $data->montoCreditoEducativo = $request->montoCreditoEducativo;
-
+                $data->tipoBecaId = $request->tipoBecaId;
+                $data->primeraRazonBecaId = $request->primeraRazonBecaId;
+                $data->segundaRazonBecaId = $request->segundaRazonBecaId;
+                $data->terceraRazonBecaId = $request->segundaRazonBecaId;
+                $data->cuartaRazonBecaId = $request->cuartaRazonBecaId;
+                $data->quintaRazonBecaId = $request->quintaRazonBecaId;
+                $data->sextaRazonBecaId = $request->sextaRazonBecaId;
+                $data->porcientoBecaCoberturaArancel = $request->porcientoBecaCoberturaArancel;
+                $data->porcientoBecaCoberturaManuntencion = $request->porcientoBecaCoberturaManuntencion;
+                $data->financiamientoBeca = $request->financiamientoBeca;
+                $data->montoAyudaEconomica = $request->montoAyudaEconomica;
+                $data->montoCreditoEducativo = $request->montoCreditoEducativo;
             }
 
 
@@ -982,11 +1044,11 @@ class MatriculaController extends Controller
 
             
         }
-        /*
+        
         if ($existeEnPeriodo) {
             return Redirect::back()->withErrors(['warning' => 'El numero de cédula ya esta registrado para otro estudiante']);
         }
-        */
+        
         DB::beginTransaction();
 
         $discapacidadResp="";
@@ -1118,9 +1180,9 @@ class MatriculaController extends Controller
                 $nombres = explode(" ", $data->nombres);
                 $apellidos = explode(" ", $data->apellidos);
                 $primerNombre = strtolower($nombres[0]);
-                $primerApellido = strtolower($apellidos[0]);
+                $primerApellido = strtolower($apellidos[0].substr($apellidos[1],0,1));
                 $user_sentinel = [                    
-                    'email' => $request->correo ?? $primerNombre . '.' . $primerApellido . $data->id . "@itred.edu.ec",
+                    'email' => $request->correo ?? $primerNombre . '.' . $primerApellido . "@itred.edu.ec",
                     'password' => "12345",
                 ];
             
