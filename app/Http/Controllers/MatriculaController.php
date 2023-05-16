@@ -50,8 +50,7 @@ class MatriculaController extends Controller
 {
     public function pasarDePeriodoLectivo(Student2 $student, Request $request)
     {
-       // dd($student);
-        //dd($request);
+       
 
         DB::beginTransaction();
         try {
@@ -65,16 +64,17 @@ class MatriculaController extends Controller
                 throw new Exception("Debe Configurar el pase de año desde Configuraciones Generales");
             }
             $cantidadAlumnos = Student2Profile::getStudentsByCourse($course->id)->count();
-            if ($cantidadAlumnos >= $course['cupos']) {
+            if ($cantidadAlumnos >= $course['nEstudiantes']) {
                 throw new Exception("Cupo de estudiantes alcanzado en el curso " . Course::nombreCurso($course));
             }
+            
            //dd($student->id, $PaseDeAnio);
             $existe = Student2Profile::where('idStudent', $student->id)->where('idPeriodo', $PaseDeAnio)->exists();
             //dd($existe);
             if ($existe) {
                 throw new Exception("El estudiante ya esta registrado en el siguiente Periodo Lectivo. ");
             }
-           
+            
             $newStudent = Student2Profile::create([
                 'numero_matriculacion' => null,
                 'idPeriodo' => $PaseDeAnio,
@@ -190,8 +190,8 @@ class MatriculaController extends Controller
                 $user->save();
             }
            // dd($newStudent->id);
-            $matriculaCuotas = new PayController;
-            $matriculaCuotas->getStudentPase($newStudent->idStudent, $request->idCurso);
+            /*$matriculaCuotas = new PayController;
+            $matriculaCuotas->getStudentPase($newStudent->idStudent, $request->idCurso);*/
             return back()->with('message', ['type' => 'success', 'text' => 'El estudiante a sido pasado al siguiente periodo lectivo con un estatus de: ' . $request->tipo_matricula]);
         } catch (Exception $e) {
             return back()->withErrors($e->getMessage());

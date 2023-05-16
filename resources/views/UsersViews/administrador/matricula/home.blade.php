@@ -128,7 +128,7 @@ div.micelda {
 </div>
 
 @if($errors->any() || $errors->import->any())
-    <div id="show-error" class="modal fade in" id="importar" role="dialog" >
+    <div id="show-error" class="modal fade in" role="dialog" >
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -149,7 +149,7 @@ div.micelda {
     </div>  
 @endif
 @if($errors->any())
-    <div id="show-error" class="modal fade in" id="importar" role="dialog" >
+    <div id="show-error" class="modal fade in" role="dialog" >
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">

@@ -164,9 +164,23 @@
 			</div>
 		</div>
 		</div>
+		@if($errors->any())
+			<div id="show-error" class="modal fade in" role="dialog" >
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">ERROR EN PROCESOS</h4>
+						</div>
+						@foreach($errors->all() as $value)
+							<div class="alert alert-danger" role="alert">Error {{$value}}</div>
+						@endforeach
+				</div>
+			</div>  
+		@endif
 @endsection
 @section('scripts')
 <script>
+	$('#show-error').modal();
     var pasar_periodo = document.getElementById('btn-pasar-de-periodo')
     pasar_periodo.addEventListener('click', function() {
         this.setAttribute('disabled', true)
