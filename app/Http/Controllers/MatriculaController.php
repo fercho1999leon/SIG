@@ -723,8 +723,8 @@ class MatriculaController extends Controller
                     $nombres = explode(" ", $data->nombres);
                     $apellidos = explode(" ", $data->apellidos);
                     $primerNombre = strtolower($nombres[0]);
-                    $primerApellido = strtolower($apellidos[0].substr($apellidos[1],0,1));
-
+                    $primerApellido = strtolower($apellidos[0].substr(count($apellidos)>1?$apellidos[1]:$apellidos[0],0,1));
+                    
                     $user_sentinel = [
                         'email' => $request->correo ?? $primerNombre . '.' . $primerApellido . "@itred.edu.ec",
                         'password' => "12345",
