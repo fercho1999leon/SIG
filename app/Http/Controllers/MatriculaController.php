@@ -437,12 +437,14 @@ class MatriculaController extends Controller
 
     public function store(StudentRequest $request)
     {    
+        
         $existeEnPeriodo = null;
         $institution = Institution::first();
         $contador_matricula = ConfiguracionSistema::contadorMatricula();
         if ($contador_matricula->valor === '') {
             return Redirect::back()->withErrors(['login_fail' => 'Antes de matricular a un estudiante, por favor, debe definir el modo de contador de matricula en configuraciones generales.']);
         }
+        
         //$course =  course::all()
         //                ->where('id_career','=',$request->curso )
          //               ->where('estado','=','1')
@@ -461,7 +463,7 @@ class MatriculaController extends Controller
         if (count(Student2::getStudentsByCourse($course->id)) >= $course->cupos) {
             return Redirect::back()->withErrors(['login_fail' => 'Cupo de estudiantes alcanzado.']);
         }
-
+       
         
         if($request->tipoBecaId == 3){
             $becaSelect = 2;
@@ -724,9 +726,9 @@ class MatriculaController extends Controller
                     $apellidos = explode(" ", $data->apellidos);
                     $primerNombre = strtolower($nombres[0]);
                     $primerApellido = strtolower($apellidos[0].substr(count($apellidos)>1?$apellidos[1]:$apellidos[0],0,1));
-                    
+
                     $user_sentinel = [
-                        'email' => $request->correo ?? $primerNombre . '.' . $primerApellido . "@itred.edu.ec",
+                        'email' => $request->correo ?? $primerNombre . '.' . $primerApellido .$data->id. "@itred.edu.ec",
                         'password' => "12345",
                     ];
                     $user = Sentinel::registerAndActivate($user_sentinel);
