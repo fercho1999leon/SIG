@@ -35,8 +35,22 @@
 		])
 	</form>
 </div>
+@if($errors->any())
+	<div id="show-error" class="modal fade in" role="dialog" >
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">ERROR EN PROCESOS</h4>
+				</div>
+				@foreach($errors->all() as $value)
+					<div class="alert alert-danger" role="alert">Error {{$value}}</div>
+				@endforeach
+		</div>
+	</div>  
+@endif
 @section('scripts')
 <script>
+	$('#show-error').modal();
 	$(document).ready(function() {
 		$('.js-example-basic-single').select2();
 	});

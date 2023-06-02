@@ -459,8 +459,8 @@ class MatriculaController extends Controller
         if($course == null ){
             return Redirect::back()->withErrors(['login_fail' => 'Antes de matricular a un estudiante, por favor, debe definir el modo de contador de matricula en configuraciones generales.']);
         }
-        
-        if (count(Student2::getStudentsByCourse($course->id)) >= $course->cupos) {
+
+        if (count(Student2::getStudentsByCourse($course->id)) >= $course->nEstudiantes) {
             return Redirect::back()->withErrors(['login_fail' => 'Cupo de estudiantes alcanzado.']);
         }
        
