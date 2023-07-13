@@ -49,18 +49,18 @@ $number = 1;
             </div>
             <!-- Encabezado Datos -->
             @include('partials.encabezados.reporte_global.reporte_global_encabezado_informativo')
-            <table id="acta_global" class="table table-bordered">
+            <table id="acta_global" class="table table-bordered" style="margin-bottom: 0px;">
             <thead style="background-color: black;">
                     <tr >
                         <th rowspan="2" class="text-uppercase" style="min-width:18px;max-width:18px">N°</th>
                         <th rowspan="2" class="text-uppercase" style="min-width:180px; max-width:180px">APELLIDOS Y NOMBRES</th>
                         <th rowspan="2" class="text-uppercase" style="min-width:48px;max-width:48px">Porcentaje de Asistencia</th>
-                        <th colspan="3" class="text-uppercase" >Proceso Académico</th>
+                        <th colspan="3" class="text-uppercase" style="height:25px">Proceso Académico</th>
                         <th colspan="2" class="text-uppercase" style="min-width:48px;max-width:48px">Calificación</th>
                     </tr>
-                    <tr>
+                    <tr >
                         <th class="text-uppercase" style="min-width:44px;max-width:44px">Gestión Formativa (30%)</th>
-                        <th class="text-uppercase" style="min-width:44px;max-width:44px">Gestión Practica (30%)</th>
+                        <th class="text-uppercase" style="min-width:44px;max-width:44px">Gestión Práctica (30%)</th>
                         <th rowspan="2" class="text-uppercase" style="min-width:54px;max-width:54px">Validación y Acreditación
                             (40%)</th>
                         <th class="text-uppercase" style="min-width:38px;max-width:38px">Total en Números</th>
@@ -69,8 +69,6 @@ $number = 1;
                 </thead>
             </table>
             <table id="acta_global" class="table table-bordered">
-                
-
                 <tbody class="text-black">
                     {{-- @foreach ($estudiantes as $estudiante)
                         <tr>
@@ -101,7 +99,7 @@ $number = 1;
                                     <th class="text-uppercase">
                                         <strong>{{$loop->iteration}}</strong>
                                     </th>
-                                    <th class="text-uppercase" style="min-width:170px; max-width:170px" style="text-align: start; padding-left: 6px;">{{$student->apellidos}}, {{$student->nombres}}
+                                    <th class="text-uppercase" style="min-width:166px; max-width:166px; text-align: start; padding-left: 6px;" >{{$student->apellidos}}, {{$student->nombres}}
                                     </th>
                                     
                                         <strong></strong>
@@ -117,7 +115,7 @@ $number = 1;
                                             ->where('estado', 'ASISTIO')
                                             ->get()->count();
                                     @endphp
-                                <th class="text-uppercase" style="min-width:48px;max-width:48px">
+                                <th class="text-uppercase" style="min-width:44px;max-width:44px">
                                     {{$asistencia ? bcdiv(($asistencia*100)/$asistenciatotal, '1', 2).'%' : '-'}}
                                 </th>
 
@@ -139,13 +137,13 @@ $number = 1;
                                         }                                 
                                     @endphp
                                     @endforeach
-                                    <th class="text-uppercase" style="min-width:44px;max-width:44px">
+                                    <th class="text-uppercase" style="min-width:40px;max-width:40px">
                                         {{ bcdiv($promedios->nota, '1', 2) }}
                                     </th>
-                                    <th class="text-uppercase" style="min-width:44px;max-width:44px">
+                                    <th class="text-uppercase" style="min-width:42px;max-width:42px">
                                         {{ bcdiv($promedios2->nota, '1', 2) }}
                                     </th>
-                                    <th class="text-uppercase" style="min-width:44px;max-width:44px">
+                                    <th class="text-uppercase" style="min-width:48px;max-width:48px">
                                         {{ bcdiv($promedios3->nota, '1', 2) }}
                                     </th>
                                         @php
@@ -157,7 +155,7 @@ $number = 1;
                                     <th class="text-uppercase" style="min-width:38px;max-width:38px">
                                     {{ bcdiv($mat->promedioFinal, '1', 2) }}
                                     </th>
-                                    <th class="text-uppercase" style="min-width:120px;max-width:120px">
+                                    <th class="text-uppercase" style="min-width:120px;max-width:120px; text-align: start; padding-left: 6px;">
                                         @php
                                         $formatter = new ALetras();
                                        echo $formatter->toMoney(bcdiv($mat->promedioFinal, '1', 2), 2, '', '');
@@ -170,6 +168,7 @@ $number = 1;
                 </tbody>
             </table>
             <!--FOOTER INFORMATIVO-->
+           
             @include('partials.footers.reporte_global.reporte_global_footer_firmas')
         </div>
     </div>
