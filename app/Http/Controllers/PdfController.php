@@ -93,7 +93,7 @@ class PdfController extends Controller
             ->where('clasesdestrezas.parcial', strtoupper($parcial))
             ->where('idMateria', '=', $validar->id)
             ->get();
-
+        
         $pdf = PDF::loadView('pdf.reportes_calificaciones.acta_calificacion',
             compact('carrera', 'semestre', 'materia', 'fecha', 'curso', 'docente',
             'teacher2', 'teacher', 'destrezas', 'data', 'unidad', 'PromedioInsumo', 'permiso','parcialPrueba',

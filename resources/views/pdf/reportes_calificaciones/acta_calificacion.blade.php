@@ -50,24 +50,26 @@ $number = 1;
             <!-- Encabezado Datos -->
             @include('partials.encabezados.reporte_global.reporte_global_encabezado_informativo')
             <table id="acta_global" class="table table-bordered">
-                <thead style="background-color: black;">
+            <thead style="background-color: black;">
                     <tr >
-                        <th rowspan="2" class="text-uppercase" width="5%">N°</th>
-                        <th rowspan="2" class="text-uppercase" width="20%">APELLIDOS Y NOMBRES</th>
-                        <th rowspan="2" class="text-uppercase" width="5%">Porcentaje de Asistencia</th>
-                        <th colspan="3" class="text-uppercase" width="20%">Proceso Académico</th>
-                        <th colspan="2" class="text-uppercase" width="20%">Calificación</th>
-                        <th rowspan="2" class="text-uppercase" width="10%">Observación</th>
+                        <th rowspan="2" class="text-uppercase" style="min-width:18px;max-width:18px">N°</th>
+                        <th rowspan="2" class="text-uppercase" style="min-width:180px; max-width:180px">APELLIDOS Y NOMBRES</th>
+                        <th rowspan="2" class="text-uppercase" style="min-width:48px;max-width:48px">Porcentaje de Asistencia</th>
+                        <th colspan="3" class="text-uppercase" >Proceso Académico</th>
+                        <th colspan="2" class="text-uppercase" style="min-width:48px;max-width:48px">Calificación</th>
                     </tr>
                     <tr>
-                        <th class="text-uppercase" width="5%">Gestión Formativa (30%)</th>
-                        <th class="text-uppercase" width="5%">Gestión Practica (30%)</th>
-                        <th rowspan="2" class="text-uppercase" width="5%">Validación y Acreditación
+                        <th class="text-uppercase" style="min-width:44px;max-width:44px">Gestión Formativa (30%)</th>
+                        <th class="text-uppercase" style="min-width:44px;max-width:44px">Gestión Practica (30%)</th>
+                        <th rowspan="2" class="text-uppercase" style="min-width:54px;max-width:54px">Validación y Acreditación
                             (40%)</th>
-                        <th class="text-uppercase" width="5%">Total en Números</th>
-                        <th class="text-uppercase" width="15%">Total en Letras</th>
+                        <th class="text-uppercase" style="min-width:38px;max-width:38px">Total en Números</th>
+                        <th class="text-uppercase" style="min-width:128px;max-width:128px">Total en Letras</th>
                     </tr> 
                 </thead>
+            </table>
+            <table id="acta_global" class="table table-bordered">
+                
 
                 <tbody class="text-black">
                     {{-- @foreach ($estudiantes as $estudiante)
@@ -99,7 +101,7 @@ $number = 1;
                                     <th class="text-uppercase">
                                         <strong>{{$loop->iteration}}</strong>
                                     </th>
-                                    <th class="text-uppercase" style="text-align: start; padding-left: 6px;">{{$student->apellidos}}, {{$student->nombres}}
+                                    <th class="text-uppercase" style="min-width:170px; max-width:170px" style="text-align: start; padding-left: 6px;">{{$student->apellidos}}, {{$student->nombres}}
                                     </th>
                                     
                                         <strong></strong>
@@ -115,7 +117,7 @@ $number = 1;
                                             ->where('estado', 'ASISTIO')
                                             ->get()->count();
                                     @endphp
-                                <th class="text-uppercase">
+                                <th class="text-uppercase" style="min-width:48px;max-width:48px">
                                     {{$asistencia ? bcdiv(($asistencia*100)/$asistenciatotal, '1', 2).'%' : '-'}}
                                 </th>
 
@@ -137,13 +139,13 @@ $number = 1;
                                         }                                 
                                     @endphp
                                     @endforeach
-                                    <th class="text-uppercase">
+                                    <th class="text-uppercase" style="min-width:44px;max-width:44px">
                                         {{ bcdiv($promedios->nota, '1', 2) }}
                                     </th>
-                                    <th class="text-uppercase">
+                                    <th class="text-uppercase" style="min-width:44px;max-width:44px">
                                         {{ bcdiv($promedios2->nota, '1', 2) }}
                                     </th>
-                                    <th class="text-uppercase">
+                                    <th class="text-uppercase" style="min-width:44px;max-width:44px">
                                         {{ bcdiv($promedios3->nota, '1', 2) }}
                                     </th>
                                         @php
@@ -152,17 +154,14 @@ $number = 1;
                                         $mat = $mats->where('materiaId',  $validar->id)->first();
                                     
                                         @endphp
-                                    <th class="text-uppercase">
+                                    <th class="text-uppercase" style="min-width:38px;max-width:38px">
                                     {{ bcdiv($mat->promedioFinal, '1', 2) }}
                                     </th>
-                                    <th class="text-uppercase">
+                                    <th class="text-uppercase" style="min-width:120px;max-width:120px">
                                         @php
                                         $formatter = new ALetras();
                                        echo $formatter->toMoney(bcdiv($mat->promedioFinal, '1', 2), 2, '', '');
                                         @endphp
-                                    </th>
-                                    <th class="text-uppercase">
-                                        {{--OBSERVACIONES QUE NO SE AUN--}}
                                     </th>
                                 </tr>
                     @endforeach
