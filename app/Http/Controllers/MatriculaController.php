@@ -1302,7 +1302,7 @@ class MatriculaController extends Controller
         $data = Student2::with('becasDescuentos', 'curso', 'pagos')->findOrFail($id);
         $configuracionTransporte = ConfiguracionSistema::pagos();
         $becas = BecaDescuento::getAllDiscounts();
-        //dd($becas);
+        
         $beca_estudiante = BecaDetalle::where('idEstudiante', $id)->get();
         $users = Administrative::orderBy('apellidos', 'ASC')->get();
         $idPeriodo = Sentinel::getUser()->idPeriodoLectivo;
@@ -1377,7 +1377,6 @@ class MatriculaController extends Controller
         //    ->first();
 
         $paraleloId = Course::find($request->paralelo);
-        //dd($paraleloId);
         if ($contador_matricula->valor === '') {
             throw new Exception('Debe definir el modo de contador de matricula en configuraciones del sistema.');
         }
@@ -1402,11 +1401,20 @@ class MatriculaController extends Controller
 
             $user = Usuario::findOrFail($user_profile->userid);
             $user->email = $request->correo;
+            
             if ($request->password != null) {
                 $user = Sentinel::findById($user_profile->userid);
+                
                 $credentials = ['password' => $request->password];
                 $user = Sentinel::update($user, $credentials);
             }
+
+            if ($request->correo != null) {
+                $user = Sentinel::findById($user_profile->userid);
+                $credentials = ['email' => $request->correo];
+                $user = Sentinel::update($user, $credentials);
+            }
+            
             $user->save();
             $user_profile->save();
         }
