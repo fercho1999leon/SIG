@@ -53,7 +53,7 @@ class PdfController extends Controller
         $docente = User::select('nombres', 'apellidos')->where('userid', $materia->idDocente)->first();
         $curso = Course::where('id', $materia->idCurso)->where('estado', '1')->first();
         $carrera = Career::where('id', $curso->id_career)->where('estado', '1')->first();
-        $semestre = Semesters::where('career_id', $carrera->id)->where('estado', '1')->first();
+        $semestre = Semesters::where('id', $curso->id_semester)->where('estado', '1')->first();
         $fecha = Fechas::fechaActual();
 
         $permiso = Permiso::desbloqueo('grade_score');
