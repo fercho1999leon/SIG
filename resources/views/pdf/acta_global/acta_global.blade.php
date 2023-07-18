@@ -32,19 +32,20 @@ $number = 1;
     @include('partials.encabezados.reporte_global.reporte_global_encabezado_titular')
     <!--ENCABEZADO INFORMATIVO-->
     @include('partials.encabezados.reporte_global.reporte_global_encabezado_informativo')
-    <table id="acta_global" class="table table-bordered">
+    <table id="acta_global" class="table table-bordered" style="margin-bottom: 0px;">
         <thead style="background-color: black;">
             <tr>
-                <th class="text-uppercase" width="5%">No.</th>
-                <th class="text-uppercase" width="20%">APELLIDOS Y NOMBRES</th>
-                <th class="text-uppercase" width="5%">PARCIAL</th>
-                <th class="text-uppercase" width="5%">RECUPERACIÓN</th>
-                <th class="text-uppercase" width="5%">NOTA FINAL</th>
-                <th class="text-uppercase" width="15%">TOTAL EN LETRAS</th>
-                <th class="text-uppercase" width="5%">ASISTENCIA</th>
-                <th class="text-uppercase" width="15%">OBSERVACIONES</th>
+                <th class="text-uppercase" style="width:2%; max-width:2%">No.</th>
+                <th class="text-uppercase" style="width:35%; max-width:35%">APELLIDOS Y NOMBRES</th>
+                <th class="text-uppercase" style="width:5%;">PARCIAL</th>
+                <th class="text-uppercase" style="width:5%;">RECUPERACIÓN</th>
+                <th class="text-uppercase" style="width:5%;">NOTA FINAL</th>
+                <th class="text-uppercase" style="width:20%; max-width:20%">TOTAL EN LETRAS</th>
+                <th class="text-uppercase" style="width:2%; max-width:2%">ASISTENCIA</th>
             </tr>
         </thead>
+    </table>
+    <table id="acta_global" class="table table-bordered">
         <tbody class="text-black">
             @php
                 $asistenciatotal = App\DailyAssistance
@@ -58,10 +59,10 @@ $number = 1;
             @foreach($students as $student)
                     
                                 <tr>
-                                    <th class="text-uppercase">
+                                    <th class="text-uppercase" style="width:2%; max-width:2%">
                                         <strong>{{$loop->iteration}}</strong>
                                     </th>
-                                    <th class="text-uppercase">{{$student->apellidos}}, {{$student->nombres}}
+                                    <th class="text-uppercase" style="width:33%; max-width:33%; text-align: start; padding-left: 6px;">{{$student->apellidos}}, {{$student->nombres}}
                                     </th>
                                     </th>
 
@@ -72,20 +73,20 @@ $number = 1;
 
                                         
                                         @endphp
-                                    <th class="text-uppercase">
+                                    <th class="text-uppercase" style="width:6%;">
                                       
                                     {{ bcdiv($mat->promedioInicial, '1', 2) }}
                                     </th>
                                     @php 
                                       //dd($mat);
                                     @endphp
-                                    <th class="text-uppercase">
+                                    <th class="text-uppercase" style="width:8%;">
                                         {{ bcdiv($mat->supletorio, '1', 2) }}
                                     </th>
-                                    <th class="text-uppercase">
+                                    <th class="text-uppercase" style="width:5%;">
                                         {{ bcdiv($mat->promedioFinal > $mat->supletorio ? $mat->promedioFinal :  $mat->supletorio, '1', 2) }}
                                     </th>
-                                    <th class="text-uppercase">
+                                    <th class="text-uppercase" style="width:20%; max-width:20%">
                                         @php
                                         $formatter = new ALetras();
                                        echo $formatter->toMoney(bcdiv($mat->promedioFinal > $mat->supletorio ? $mat->promedioFinal :  $mat->supletorio, '1', 2), 2, '', '');
@@ -100,12 +101,9 @@ $number = 1;
                                             ->where('estado', 'ASISTIO')
                                             ->get()->count();
                                     @endphp
-                                <th class="text-uppercase">
+                                <th class="text-uppercase" style="width:6%; max-width:6%">
                                     {{$asistencia ? bcdiv(($asistencia*100)/$asistenciatotal, '1', 2).'%' : '-'}}
                                 </th>
-                                    <th class="text-uppercase">
-                                        {{--OBSERVACIONES QUE NO SE AUN--}}
-                                    </th>
                                 </tr>
                     @endforeach
         </tbody>
